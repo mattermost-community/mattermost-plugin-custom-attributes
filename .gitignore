@@ -1,1 +1,3 @@
 dist
+server/dist
+webapp/dist

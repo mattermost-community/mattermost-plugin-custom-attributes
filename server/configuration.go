@@ -18,13 +18,35 @@ import (
 // If you add non-reference types to your configuration struct, be sure to rewrite Clone as a deep
 // copy appropriate for your types.
 type configuration struct {
+	CustomAttributes []CustomAttribute
+}
+
+type CustomAttribute struct {
+	Name    string
+	UserIDs []string
 }
 
 // Clone shallow copies the configuration. Your implementation may require a deep copy if
 // your configuration has reference types.
 func (c *configuration) Clone() *configuration {
 	var clone = *c
+
+	clone.CustomAttributes = make([]CustomAttribute, len(c.CustomAttributes))
+	for i1, ca := range c.CustomAttributes {
+		caClone := CustomAttribute{}
+		caClone.Name = ca.Name
+		caClone.UserIDs = make([]string, len(ca.UserIDs))
+		for i2, id := range ca.UserIDs {
+			caClone.UserIDs[i2] = id
+		}
+		clone.CustomAttributes[i1] = caClone
+	}
+
 	return &clone
+}
+
+func (c *configuration) IsValid() bool {
+	return c.CustomAttributes != nil
 }
 
 // getConfiguration retrieves the active configuration under lock, making it safe to use

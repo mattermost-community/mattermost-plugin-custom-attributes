@@ -1,9 +1,12 @@
 import {id as pluginId} from './manifest';
 
+import UserAttribute from './components/user_attribute';
+import Reducer from './reducers';
+
 export default class Plugin {
-    // eslint-disable-next-line no-unused-vars
-    initialize(registry, store) {
-        // @see https://developers.mattermost.com/extend/plugins/webapp/reference/
+    initialize(registry) {
+        registry.registerReducer(Reducer);
+        registry.registerPopoverUserAttributesComponent(UserAttribute);
     }
 }
 
