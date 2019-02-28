@@ -1,47 +1,48 @@
-# Sample Plugin [![Build Status](https://travis-ci.org/mattermost/mattermost-plugin-sample.svg?branch=master)](https://travis-ci.org/mattermost/mattermost-plugin-sample)
+# Mattermost Custom Attributes Plugin
 
-This plugin serves as a starting point for writing a Mattermost plugin. Feel free to base your own plugin off this repository.
+This plugin allows you to add custom attributes to users in your Mattermost. Currently it only exposes those attributes in the profile popover of users but in the future the plan is to extend the plugin to allow adding badges next to usernames based on attributes and potentially display the attributes in other places.
 
-## Getting Started
-Shallow clone the repository to a directory matching your plugin name:
-```
-git clone --depth 1 https://github.com/mattermost/mattermost-plugin-sample com.example.my-plugin
-```
+We use this plugin on https://community.mattermost.com to distinguish Mattermost core committers and staff from other users.
 
-Edit `plugin.json` with your `id`, `name`, and `description`:
-```
-{
-    "id": "com.example.my-plugin",
-    "name": "My Plugin",
-    "description": "A plugin to enhance Mattermost."
-}
-```
+**Supported Mattermost Server Versions: 5.4+**
 
-Build your plugin:
-```
-make
-```
+## Installation
 
-This will produce a single plugin file (with support for multiple architectures) for upload to your Mattermost server:
+1. Go to the [releases page of this GitHub repository](https://github.com/mattermost/mattermost-plugin-custom-attributes/releases) and download the latest release.
+2. Upload this file in the Mattermost **System Console > Plugins > Management** page to install the plugin. To learn more about how to upload a plugin, [see the documentation](https://docs.mattermost.com/administration/plugins.html#plugin-uploads).
+3. Modify your `config.json` file to include your custom attributes, under the `PluginSettings`. See below for an example of what this should look like.
+
+## Usage
+
+To add a custom attribute you need to edit your `config.json` and add a "CustomAttributes" field containing an array of the attributes you want to add. An attribute should have a "Name" field for what is displayed in the UI as the attribute and an array of "UserIDs" for the users this attribute should apply to. The "Name" field can include Mattermost friendly Markdown, emojis and/or links.
+
+Below is an example:
+
 
 ```
-dist/com.example.my-plugin.tar.gz
+"PluginSettings": {
+    ...
+    "Plugins": {
+        "com.mattermost.custom-attributes": {
+            "CustomAttributes": [
+                {
+                    "Name": ":mattermost: [Core Committer](https://developers.mattermost.com/contribute/getting-started/core-committers/)",
+                    "UserIDs": ["someuserID1", "someuserID2"]
+                },
+                {
+                    "Name": ":mattermost: Staff",
+                    "UserIDs": ["someuserID3", "someuserID4"]
+                }
+            ]
+        }
+    }
+    ...
+    "PluginStates": {
+        ...
+        "com.mattermost.custom-attributes": {
+            "Enable": true
+        },
+        ...
+    }
+},
 ```
-
-There is a build target to automate deploying and enabling the plugin to your server, but it requires configuration and [http](https://httpie.org/) to be installed:
-```
-export MM_SERVICESETTINGS_SITEURL=http://localhost:8065
-export MM_ADMIN_USERNAME=admin
-export MM_ADMIN_PASSWORD=password
-make deploy
-```
-
-Alternatively, if you are running your `mattermost-server` out of a sibling directory by the same name, use the `deploy` target alone to  unpack the files into the right directory. You will need to restart your server and manually enable your plugin.
-
-In production, deploy and upload your plugin via the [System Console](https://about.mattermost.com/default-plugin-uploads).
-
-## Q&A
-
-### How do I make a server-only or web app-only plugin?
-
-Simply delete the `server` or `webapp` folders and remove the corresponding sections from `plugin.json`. The build scripts will skip the missing portions automatically.
