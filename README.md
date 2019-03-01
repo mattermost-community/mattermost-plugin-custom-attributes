@@ -1,4 +1,4 @@
-# Mattermost Custom Attributes Plugin
+# Mattermost Custom Attributes Plugin [![CircleCI](https://circleci.com/gh/mattermost/mattermost-plugin-custom-attributes.svg?style=svg)](https://circleci.com/gh/mattermost/mattermost-plugin-custom-attributes)
 
 This plugin allows you to add custom attributes to users in your Mattermost. Currently it only exposes those attributes in the profile popover of users but in the future the plan is to extend the plugin to allow adding badges next to usernames based on attributes and potentially display the attributes in other places.
 
