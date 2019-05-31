@@ -1,7 +1,7 @@
 {
     "id": "com.mattermost.custom-attributes",
     "name": "Custom User Attributes",
-    "description": "This plugin allows you to add custom user attributes that show up in the Mattermost UI for users.",
+    "description": "Add custom user attributes that appear in the Mattermost user interface.",
     "version": "0.0.1",
     "server": {
         "executables": {
@@ -14,8 +14,6 @@
         "bundle_path": "webapp/dist/main.js"
     },
     "settings_schema": {
-        "header": "",
-        "footer": "",
-        "settings": []
+        "header": "Configure this plugin directly in the config.json file. Learn more [in our documentation](https://github.com/mattermost/mattermost-plugin-custom-attributes/blob/master/README.md).\n\nTo report an issue, make a suggestion or a contribution, [check the plugin repository](https://github.com/mattermost/mattermost-plugin-custom-attributes)."
     }
 }
