@@ -1,7 +1,7 @@
 {
     "id": "com.mattermost.custom-attributes",
     "name": "Custom User Attributes",
-    "description": "Add custom user attributes that appear in the Mattermost user interface.",
+    "description": "Add custom user attributes to the Mattermost user profile popover.",
     "version": "0.0.1",
     "server": {
         "executables": {
