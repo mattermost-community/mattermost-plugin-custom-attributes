@@ -1,20 +1,25 @@
 # Mattermost Custom Attributes Plugin [![CircleCI](https://circleci.com/gh/mattermost/mattermost-plugin-custom-attributes.svg?style=svg)](https://circleci.com/gh/mattermost/mattermost-plugin-custom-attributes)
 
-This plugin allows you to add custom attributes to users in your Mattermost. Currently it only exposes those attributes in the profile popover of users but in the future the plan is to extend the plugin to allow adding badges next to usernames based on attributes and potentially display the attributes in other places.
+This plugin adds custom attributes to users in your Mattermost instance.
 
-We use this plugin on https://community.mattermost.com to distinguish Mattermost core committers and staff from other users.
+Currently the plugin only exposes the specified attributes in the user profile popover, but this plugin can be extended to allow displaying attributes elsewhere in the user interface, such as badges next to usernames.
 
-**Supported Mattermost Server Versions: 5.4+**
+We use this plugin on https://community.mattermost.com to distinguish Mattermost core committers and staff.
 
-## Installation
+![image](https://user-images.githubusercontent.com/13119842/58710612-b5c7b380-838a-11e9-9974-4487daf82da5.png)
 
-1. Go to the [releases page of this GitHub repository](https://github.com/mattermost/mattermost-plugin-custom-attributes/releases) and download the latest release.
-2. Upload this file in the Mattermost **System Console > Plugins > Management** page to install the plugin. To learn more about how to upload a plugin, [see the documentation](https://docs.mattermost.com/administration/plugins.html#plugin-uploads).
-3. Modify your `config.json` file to include your custom attributes, under the `PluginSettings`. See below for an example of what this should look like.
+## Configuration
+
+1. Go to **System Console > Plugins > Management** and click **Enable** to enable the Customer Attributes plugin.(https://docs.mattermost.com/administration/plugins.html#plugin-uploads).
+    - If you are running Mattermost v5.11 or earlier, you must first go to the [releases page of this GitHub repository](https://github.com/mattermost/mattermost-plugin-custom-attributes/releases), download the latest release, and upload it to your Mattermost instance [following this documentation](https://docs.mattermost.com/administration/plugins.html#plugin-uploads).
+
+2. Modify your `config.json` file to include your custom attributes, under the `PluginSettings`. See below for an example of what this should look like.
 
 ## Usage
 
-To add a custom attribute you need to edit your `config.json` and add a "CustomAttributes" field containing an array of the attributes you want to add. An attribute should have a "Name" field for what is displayed in the UI as the attribute and an array of "UserIDs" for the users this attribute should apply to. The "Name" field can include Mattermost friendly Markdown, emojis and/or links.
+To add a custom attribute, edit your `config.json` file and add a "CustomAttributes" field. This field contains an array of the attributes you want to add.
+
+An attribute should have a `Name` field for what is displayed in the user interface as the attribute and an array of `UserIDs` for the users this attribute should apply to. The `Name` field can include Markdown, emojis and links.
 
 Below is an example:
 
