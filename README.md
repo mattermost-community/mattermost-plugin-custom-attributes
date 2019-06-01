@@ -54,7 +54,7 @@ Below is an example:
 
 ## Development
 
-This plugin contains both a server and webapp portion portion.
+This plugin contains both a server and webapp portion.
 
 Use `make dist` to build distributions of the plugin that you can upload to a Mattermost server.
 Use `make check-style` to check the style.
