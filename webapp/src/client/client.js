@@ -15,7 +15,7 @@ export default class Client {
         headers['X-Requested-With'] = 'XMLHttpRequest';
         headers['X-Timezone-Offset'] = new Date().getTimezoneOffset();
 
-        try {
+        try { // eslint-disable-line no-useless-catch
             const response = await request.
                 get(url).
                 set(headers).
@@ -31,7 +31,7 @@ export default class Client {
         headers['X-Requested-With'] = 'XMLHttpRequest';
         headers['X-Timezone-Offset'] = new Date().getTimezoneOffset();
 
-        try {
+        try { // eslint-disable-line no-useless-catch
             const response = await request.
                 post(url).
                 send(body).
@@ -49,7 +49,7 @@ export default class Client {
         headers['X-Requested-With'] = 'XMLHttpRequest';
         headers['X-Timezone-Offset'] = new Date().getTimezoneOffset();
 
-        try {
+        try { // eslint-disable-line no-useless-catch
             const response = await request.
                 delete(url).
                 send(body).
@@ -67,7 +67,7 @@ export default class Client {
         headers['X-Requested-With'] = 'XMLHttpRequest';
         headers['X-Timezone-Offset'] = new Date().getTimezoneOffset();
 
-        try {
+        try { // eslint-disable-line no-useless-catch
             const response = await request.
                 put(url).
                 send(body).
