@@ -50,7 +50,3 @@ workflows:
             - plugin-ci/lint
             - plugin-ci/coverage
             - plugin-ci/build
-
-            - plugin-ci/lint
-            - plugin-ci/test
-            - plugin-ci/build
