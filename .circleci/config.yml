@@ -4,7 +4,8 @@ orbs:
   plugin-ci: mattermost/plugin-ci@volatile
 
 workflows:
-  ci-build:
+  version: 2
+  ci:
     jobs:
       - plugin-ci/lint:
           filters:
