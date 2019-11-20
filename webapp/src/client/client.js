@@ -1,4 +1,5 @@
-import request from 'superagent';
+import {Client4} from 'mattermost-redux/client';
+import {ClientError} from 'mattermost-redux/client/client4';
 
 import {id as pluginId} from '../manifest';
 
@@ -12,56 +13,23 @@ export default class Client {
     };
 
     doGet = async (url, body, headers = {}) => {
-        headers['X-Requested-With'] = 'XMLHttpRequest';
-        headers['X-Timezone-Offset'] = new Date().getTimezoneOffset();
+        const options = {
+            method: 'get',
+            headers,
+        };
 
-        const response = await request.
-            get(url).
-            set(headers).
-            accept('application/json');
+        const response = await fetch(url, Client4.getOptions(options));
 
-        return response.body;
-    };
+        if (response.ok) {
+            return response.json();
+        }
 
-    doPost = async (url, body, headers = {}) => {
-        headers['X-Requested-With'] = 'XMLHttpRequest';
-        headers['X-Timezone-Offset'] = new Date().getTimezoneOffset();
+        const text = await response.text();
 
-        const response = await request.
-            post(url).
-            send(body).
-            set(headers).
-            type('application/json').
-            accept('application/json');
-
-        return response.body;
-    };
-
-    doDelete = async (url, body, headers = {}) => {
-        headers['X-Requested-With'] = 'XMLHttpRequest';
-        headers['X-Timezone-Offset'] = new Date().getTimezoneOffset();
-
-        const response = await request.
-            delete(url).
-            send(body).
-            set(headers).
-            type('application/json').
-            accept('application/json');
-
-        return response.body;
-    };
-
-    doPut = async (url, body, headers = {}) => {
-        headers['X-Requested-With'] = 'XMLHttpRequest';
-        headers['X-Timezone-Offset'] = new Date().getTimezoneOffset();
-
-        const response = await request.
-            put(url).
-            send(body).
-            set(headers).
-            type('application/json').
-            accept('application/json');
-
-        return response.body;
+        throw new ClientError(Client4.url, {
+            message: text || '',
+            status_code: response.status,
+            url,
+        });
     };
 }
