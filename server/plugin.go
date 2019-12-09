@@ -64,21 +64,20 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 				attributes = append(attributes, ca.Name)
 			}
 		}
-		if contains(attributes, ca.Name) {
-			continue
-		}
-		for _, id := range ca.GroupIDs {
-			usersGroups, err := p.API.GetGroupsForUser(userID)
-			if err != nil {
-				http.Error(w, "Could not retrieve groups of this user", http.StatusBadRequest)
-				return
-			}
-			for _, userGroup := range usersGroups {
-				if id == userGroup.Id {
-					attributes = append(attributes, ca.Name)
+		if !contains(attributes, ca.Name) {
+			for _, id := range ca.GroupIDs {
+				usersGroups, err := p.API.GetGroupsForUser(userID)
+				if err != nil {
+					http.Error(w, "Could not retrieve groups of this user", http.StatusBadRequest)
+					return
 				}
-			}
+				for _, userGroup := range usersGroups {
+					if id == userGroup.Id {
+						attributes = append(attributes, ca.Name)
+					}
+				}
 
+			}
 		}
 	}
 
