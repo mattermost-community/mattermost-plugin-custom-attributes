@@ -64,6 +64,9 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 				attributes = append(attributes, ca.Name)
 			}
 		}
+		if contains(attributes, ca.Name) {
+			continue
+		}
 		for _, id := range ca.GroupIDs {
 			usersGroups, err := p.API.GetGroupsForUser(userID)
 			if err != nil {
@@ -72,9 +75,6 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 			}
 			for _, userGroup := range usersGroups {
 				if id == userGroup.Id {
-					if contains(attributes, ca.Name) {
-						continue
-					}
 					attributes = append(attributes, ca.Name)
 				}
 			}
