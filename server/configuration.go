@@ -22,8 +22,9 @@ type configuration struct {
 }
 
 type CustomAttribute struct {
-	Name    string
-	UserIDs []string
+	Name     string
+	UserIDs  []string
+	GroupIDs []string
 }
 
 // Clone shallow copies the configuration. Your implementation may require a deep copy if

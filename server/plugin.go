@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/mattermost/mattermost-server/plugin"
+	"github.com/mattermost/mattermost-server/v5/plugin"
 )
 
 type Plugin struct {
@@ -56,13 +56,29 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 
 	attributes := []string{}
 	for _, ca := range config.CustomAttributes {
-		if ca.UserIDs == nil {
+		if ca.UserIDs == nil && ca.GroupIDs == nil {
 			continue
 		}
 		for _, id := range ca.UserIDs {
 			if id == userID {
 				attributes = append(attributes, ca.Name)
 			}
+		}
+		for _, id := range ca.GroupIDs {
+			usersGroups, err := p.API.GetGroupsForUser(userID)
+			if err != nil {
+				http.Error(w, "Could not retrieve groups of this user", http.StatusBadRequest)
+				return
+			}
+			for _, userGroup := range usersGroups {
+				if id == userGroup.Id {
+					if contains(attributes, ca.Name) {
+						continue
+					}
+					attributes = append(attributes, ca.Name)
+				}
+			}
+
 		}
 	}
 
@@ -77,3 +93,11 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 }
 
 // See https://developers.mattermost.com/extend/plugins/server/reference/
+func contains(arr []string, str string) bool {
+	for _, a := range arr {
+		if a == str {
+			return true
+		}
+	}
+	return false
+}
