@@ -61,7 +61,7 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 		if ca.UserIDs == nil && ca.GroupIDs == nil {
 			continue
 		}
-		if contains(ca.UserIDs, userID, nil) || contains(ca.GroupIDs, "", usersGroups) {
+		if sliceContainsString(ca.UserIDs, userID) || sliceContainsUserGroup(ca.GroupIDs, usersGroups) {
 			attributes = append(attributes, ca.Name)
 		}
 	}
@@ -76,19 +76,19 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 	w.Write(b)
 }
 
-// See https://developers.mattermost.com/extend/plugins/server/reference/
-func contains(arr []string, str string, userGroups []*model.Group) bool {
-	if userGroups != nil {
-		for _, a := range arr {
-			for _, userGroup := range userGroups {
-				if a == userGroup.Id {
-					return true
-				}
-			}
+func sliceContainsString(arr []string, str string) bool {
+	for _, a := range arr {
+		if a == str {
+			return true
 		}
-	} else {
-		for _, a := range arr {
-			if a == str {
+	}
+	return false
+}
+
+func sliceContainsUserGroup(arr []string, userGroups []*model.Group) bool {
+	for _, a := range arr {
+		for _, userGroup := range userGroups {
+			if a == userGroup.Id {
 				return true
 			}
 		}
