@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"sync"
 
+	"github.com/mattermost/mattermost-server/v5/model"
 	"github.com/mattermost/mattermost-server/v5/plugin"
 )
 
@@ -55,29 +56,13 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 	}
 
 	attributes := []string{}
+	usersGroups, _ := p.API.GetGroupsForUser(userID)
 	for _, ca := range config.CustomAttributes {
 		if ca.UserIDs == nil && ca.GroupIDs == nil {
 			continue
 		}
-		for _, id := range ca.UserIDs {
-			if id == userID {
-				attributes = append(attributes, ca.Name)
-			}
-		}
-		if !contains(attributes, ca.Name) {
-			for _, id := range ca.GroupIDs {
-				usersGroups, err := p.API.GetGroupsForUser(userID)
-				if err != nil {
-					http.Error(w, "Could not retrieve groups of this user", http.StatusBadRequest)
-					return
-				}
-				for _, userGroup := range usersGroups {
-					if id == userGroup.Id {
-						attributes = append(attributes, ca.Name)
-					}
-				}
-
-			}
+		if contains(ca.UserIDs, userID, nil) || contains(ca.GroupIDs, "", usersGroups) {
+			attributes = append(attributes, ca.Name)
 		}
 	}
 
@@ -92,10 +77,20 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 }
 
 // See https://developers.mattermost.com/extend/plugins/server/reference/
-func contains(arr []string, str string) bool {
-	for _, a := range arr {
-		if a == str {
-			return true
+func contains(arr []string, str string, userGroups []*model.Group) bool {
+	if userGroups != nil {
+		for _, a := range arr {
+			for _, userGroup := range userGroups {
+				if a == userGroup.Id {
+					return true
+				}
+			}
+		}
+	} else {
+		for _, a := range arr {
+			if a == str {
+				return true
+			}
 		}
 	}
 	return false
