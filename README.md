@@ -21,6 +21,9 @@ To add a custom attribute, edit your `config.json` file and add a "CustomAttribu
 
 An attribute should have a `Name` field for what is displayed in the user interface as the attribute and an array of `UserIDs` for the users this attribute should apply to. The `Name` field can include Markdown, emojis and links.
 
+You can also add an array of Mattermost group ID's to the `GroupIDs` parameter. The `Name` will then be displayed
+for all memebers who are apart of that group.
+
 Below is an example:
 
 
@@ -32,11 +35,13 @@ Below is an example:
             "CustomAttributes": [
                 {
                     "Name": ":mattermost: [Core Committer](https://developers.mattermost.com/contribute/getting-started/core-committers/)",
-                    "UserIDs": ["someuserID1", "someuserID2"]
+                    "UserIDs": ["someuserID1", "someuserID2"],
+                    "GroupIDs":["somegroupID1","somegroupID2"]
                 },
                 {
                     "Name": ":mattermost: Staff",
-                    "UserIDs": ["someuserID3", "someuserID4"]
+                    "UserIDs": ["someuserID3", "someuserID4"],
+                    "GroupIDs":["somegroupID3","somegroupID4"]
                 }
             ]
         }
