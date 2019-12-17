@@ -5,7 +5,8 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/mattermost/mattermost-server/plugin"
+	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/mattermost/mattermost-server/v5/plugin"
 )
 
 type Plugin struct {
@@ -55,14 +56,13 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 	}
 
 	attributes := []string{}
+	usersGroups, _ := p.API.GetGroupsForUser(userID)
 	for _, ca := range config.CustomAttributes {
-		if ca.UserIDs == nil {
+		if ca.UserIDs == nil && ca.GroupIDs == nil {
 			continue
 		}
-		for _, id := range ca.UserIDs {
-			if id == userID {
-				attributes = append(attributes, ca.Name)
-			}
+		if sliceContainsString(ca.UserIDs, userID) || sliceContainsUserGroup(ca.GroupIDs, usersGroups) {
+			attributes = append(attributes, ca.Name)
 		}
 	}
 
@@ -76,4 +76,22 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 	w.Write(b)
 }
 
-// See https://developers.mattermost.com/extend/plugins/server/reference/
+func sliceContainsString(arr []string, str string) bool {
+	for _, a := range arr {
+		if a == str {
+			return true
+		}
+	}
+	return false
+}
+
+func sliceContainsUserGroup(arr []string, userGroups []*model.Group) bool {
+	for _, a := range arr {
+		for _, userGroup := range userGroups {
+			if a == userGroup.Id {
+				return true
+			}
+		}
+	}
+	return false
+}
