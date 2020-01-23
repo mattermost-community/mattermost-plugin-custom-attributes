@@ -27,65 +27,65 @@ export default class CustomAttribute extends React.Component {
     }
 
     handleNameInput = (e) => {
-        if (!e.target.value || e.target.value.trim() == ""){
-            this.setState({error: 'Attribute name cannot be empty.'})
-        }
-        else if (this.state.users || this.state.groups) {
-            this.setState({error: null})
+        if (!e.target.value || e.target.value.trim() === '') {
+            this.setState({error: 'Attribute name cannot be empty.'});
+        } else if (this.state.users || this.state.groups) {
+            this.setState({error: null});
         }
 
-        this.setState({name:e.target.value});
-        this.props.onChange({id: this.props.id, name:e.target.value, users:this.state.users, groups:this.state.groups})
+        this.setState({name: e.target.value});
+        this.props.onChange({id: this.props.id, name: e.target.value, users: this.state.users, groups: this.state.groups});
     }
 
     handleUsersInput = (e) => {
-        const usersEmpty = !e.target.value || e.target.value.trim() == "";
-        const groupsEmpty = !this.state.groups || this.state.groups.trim() == "";
+        const usersEmpty = !e.target.value || e.target.value.trim() === '';
+        const groupsEmpty = !this.state.groups || this.state.groups.trim() === '';
 
-        if (usersEmpty && groupsEmpty){
-            this.setState({error: 'Attribute must include at least one user or group.'})
+        if (usersEmpty && groupsEmpty) {
+            this.setState({error: 'Attribute must include at least one user or group.'});
+        } else if (this.state.name) {
+            this.setState({error: null});
         }
-        else if (this.state.name) {
-            this.setState({error: null})
-        }
-        
-        this.setState({users:e.target.value});
-        this.props.onChange({id: this.props.id, name:this.state.name, users:e.target.value, groups: this.state.groups})
+
+        this.setState({users: e.target.value});
+        this.props.onChange({id: this.props.id, name: this.state.name, users: e.target.value, groups: this.state.groups});
     }
 
     handleGroupsInput = (e) => {
-        const usersEmpty = !e.target.value || e.target.value.trim() == "";
-        const groupsEmpty = !this.state.groups || this.state.groups.trim() == "";
+        const usersEmpty = !e.target.value || e.target.value.trim() === '';
+        const groupsEmpty = !this.state.groups || this.state.groups.trim() === '';
 
-        if (usersEmpty && groupsEmpty){
-            this.setState({error: 'Attribute must include at least one user or group.'})
+        if (usersEmpty && groupsEmpty) {
+            this.setState({error: 'Attribute must include at least one user or group.'});
+        } else if (this.state.name) {
+            this.setState({error: null});
         }
-        else if (this.state.name) {
-            this.setState({error: null})
-        }
-        
-        this.setState({groups:e.target.value});
-        this.props.onChange({id: this.props.id, name:this.state.name, users:this.state.users, groups:e.target.value})
+
+        this.setState({groups: e.target.value});
+        this.props.onChange({id: this.props.id, name: this.state.name, users: this.state.users, groups: e.target.value});
     }
 
     handleDelete = () => {
-        this.props.onDelete(this.props.id)
+        this.props.onDelete(this.props.id);
     }
 
     getMarkdownPreview = () => {
-        if (!this.props.markdownPreview){
-            return null
+        if (!this.props.markdownPreview) {
+            return null;
         }
 
         const formattedText = formatText(this.state.name);
-        return messageHtmlToComponent(formattedText)
+        return messageHtmlToComponent(formattedText);
     }
 
-    render () {
+    render() {
         let deleteButton = null;
         if (!this.props.hideDelete) {
             deleteButton = (
-                <div className='col-xs-12 col-sm-1' style={{paddingLeft:'5px'}}>
+                <div
+                    className='col-xs-12 col-sm-1'
+                    style={{paddingLeft: '5px'}}
+                >
                     <a
                         style={styles.deleteIcon}
                         onClick={this.handleDelete}
@@ -93,19 +93,25 @@ export default class CustomAttribute extends React.Component {
                         {'\u2296'}
                     </a>
                 </div>
-                );
+            );
         }
 
         let errorLabel = null;
-        if (this.state.error){
-            errorLabel = this.state.error
+        if (this.state.error) {
+            errorLabel = this.state.error;
         }
 
         return (
             <React.Fragment>
                 {this.getMarkdown()}
-                <div className='row' style={{padding:'10px 0px'}}>
-                    <div className='col-xs-12 col-sm-5' style={{padding:'0px'}}>
+                <div
+                    className='row'
+                    style={{padding: '10px 0px'}}
+                >
+                    <div
+                        className='col-xs-12 col-sm-5'
+                        style={{padding: '0px'}}
+                    >
                         <input
                             id={`name-${this.props.id}`}
                             className='form-control'
@@ -134,9 +140,9 @@ export default class CustomAttribute extends React.Component {
                             value={this.state.groups}
                             onChange={this.handleGroupsInput}
                         />
-                    </div>                  
+                    </div>
                     {deleteButton}
-                    
+
                 </div>
                 {errorLabel}
             </React.Fragment>);
@@ -146,11 +152,11 @@ export default class CustomAttribute extends React.Component {
 const styles = {
     deleteIcon: {
         height: '20px',
-        width: '24px',	
-        color: '#DB1C34',	
+        width: '24px',
+        color: '#DB1C34',
         fontFamily: 'material',
         fontSize: '20px',
         lineHeight: '20px',
-        paddingLeft: '5px'
-    }
-}
+        paddingLeft: '5px',
+    },
+};

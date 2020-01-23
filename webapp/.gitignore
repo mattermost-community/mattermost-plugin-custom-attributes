@@ -1,2 +1,5 @@
 node_modules
 .npminstall
+.vscode/
+.DS_Store
+
