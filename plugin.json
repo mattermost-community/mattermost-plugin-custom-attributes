@@ -3,6 +3,7 @@
     "name": "Custom User Attributes",
     "description": "Add custom user attributes to the Mattermost user profile popover.",
     "version": "1.1.0",
+    "min_server_version": "5.20.0",
     "server": {
         "executables": {
             "linux-amd64": "server/dist/plugin-linux-amd64",
