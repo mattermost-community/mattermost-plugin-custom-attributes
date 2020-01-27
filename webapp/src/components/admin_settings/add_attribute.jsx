@@ -41,7 +41,7 @@ export default class AddAttribute extends React.Component {
     }
 
     handleSave = () => {
-        const usersEmpty = !this.state.users || this.state.users.trim() === '';
+        const usersEmpty = !this.state.users || !this.state.users.length;
         const groupsEmpty = !this.state.groups || this.state.groups.trim() === '';
 
         if (!this.state.name || this.state.name.trim() === '' || (usersEmpty && groupsEmpty)) {

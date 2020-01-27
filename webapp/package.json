@@ -21,7 +21,7 @@
     "@babel/preset-react": "7.0.0",
     "@babel/runtime": "7.5.5",
     "babel-eslint": "10.0.2",
-    "babel-loader": "8.0.6",
+    "babel-loader": "^8.0.6",
     "eslint": "6.1.0",
     "eslint-import-resolver-webpack": "0.11.1",
     "eslint-plugin-import": "2.18.2",
@@ -31,9 +31,11 @@
   },
   "dependencies": {
     "core-js": "3.1.4",
+    "lodash": "^4.17.15",
     "mattermost-redux": "github:mattermost/mattermost-redux#b56e7e3a6f7f5de281fd3541eefec9345a8bbc89",
     "react": "16.4.1",
     "react-redux": "5.0.7",
+    "react-select": "^3.0.8",
     "redux": "4.0.4",
     "superagent": "4.1.0"
   }

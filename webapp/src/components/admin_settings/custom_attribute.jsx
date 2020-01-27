@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import UsersInput from '../users_input';
+
 const {formatText, messageHtmlToComponent} = window.PostUtils;
 
 export default class CustomAttribute extends React.Component {
@@ -9,8 +11,8 @@ export default class CustomAttribute extends React.Component {
         name: PropTypes.string,
         users: PropTypes.array,
         groups: PropTypes.array,
-        hideDelete: PropTypes.boolean,
-        markdownPreview: PropTypes.boolean,
+        hideDelete: PropTypes.bool,
+        markdownPreview: PropTypes.bool,
         onDelete: PropTypes.func,
         onChange: PropTypes.func.isRequired,
     }
@@ -37,8 +39,16 @@ export default class CustomAttribute extends React.Component {
         this.props.onChange({id: this.props.id, name: e.target.value, users: this.state.users, groups: this.state.groups});
     }
 
-    handleUsersInput = (e) => {
-        const usersEmpty = !e.target.value || e.target.value.trim() === '';
+    handleUsersInput = (inputUsers) => {
+        const userIds = inputUsers;
+
+        /*if (inputUsers) {
+            userIds = inputUsers.map((v) => {
+                return v.id;
+            });
+        }*/
+
+        const usersEmpty = !userIds || !userIds.length;
         const groupsEmpty = !this.state.groups || this.state.groups.trim() === '';
 
         if (usersEmpty && groupsEmpty) {
@@ -47,8 +57,8 @@ export default class CustomAttribute extends React.Component {
             this.setState({error: null});
         }
 
-        this.setState({users: e.target.value});
-        this.props.onChange({id: this.props.id, name: this.state.name, users: e.target.value, groups: this.state.groups});
+        this.setState({users: userIds});
+        this.props.onChange({id: this.props.id, name: this.state.name, users: userIds, groups: this.state.groups});
     }
 
     handleGroupsInput = (e) => {
@@ -103,40 +113,37 @@ export default class CustomAttribute extends React.Component {
 
         return (
             <React.Fragment>
-                {this.getMarkdown()}
+                {this.getMarkdownPreview()}
                 <div
                     className='row'
                     style={{padding: '10px 0px'}}
                 >
                     <div
-                        className='col-xs-12 col-sm-5'
+                        className='col-xs-12 col-sm-2'
                         style={{padding: '0px'}}
                     >
                         <input
                             id={`name-${this.props.id}`}
                             className='form-control'
                             type='text'
-                            placeholder='Name markdown'
+                            placeholder='Attribute Label'
                             value={this.state.name}
                             onChange={this.handleNameInput}
                         />
                     </div>
-                    <div className='col-xs-12 col-sm-4'>
-                        <input
-                            id={`users-${this.props.id}`}
-                            className='form-control'
-                            type='text'
-                            placeholder='User1 User2'
-                            value={this.state.users}
+                    <div className='col-xs-12 col-sm-5'>
+                        <UsersInput
+                            placeholder='@username1 @username2'
+                            users={this.state.users}
                             onChange={this.handleUsersInput}
                         />
                     </div>
-                    <div className='col-xs-12 col-sm-2'>
+                    <div className='col-xs-12 col-sm-4'>
                         <input
                             id={`groups-${this.props.id}`}
                             className='form-control'
                             type='text'
-                            placeholder='Group1 Group2'
+                            placeholder='GroupID1 GroupID2'
                             value={this.state.groups}
                             onChange={this.handleGroupsInput}
                         />
