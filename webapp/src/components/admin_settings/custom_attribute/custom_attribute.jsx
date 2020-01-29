@@ -7,14 +7,17 @@ const {formatText, messageHtmlToComponent} = window.PostUtils;
 
 export default class CustomAttribute extends React.Component {
     static propTypes = {
-        id: PropTypes.string,
-        name: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
         users: PropTypes.array,
         groups: PropTypes.array,
         hideDelete: PropTypes.bool,
         markdownPreview: PropTypes.bool,
         onDelete: PropTypes.func,
         onChange: PropTypes.func.isRequired,
+        actions: PropTypes.shape({
+            getProfilesByIds: PropTypes.func.isRequired,
+        }).isRequired,
     }
 
     constructor(props) {
@@ -22,10 +25,35 @@ export default class CustomAttribute extends React.Component {
 
         this.state = {
             name: this.props.name,
-            users: this.props.users,
             groups: this.props.groups,
             error: null,
         };
+
+        this.initUsers();
+    }
+
+    // initUsers fetches user profiles for the users ids passed in props
+    async initUsers() {
+        if (!this.props.users || !this.props.users.length) {
+            return;
+        }
+
+        const profiles = await this.props.actions.getProfilesByIds(this.props.users);
+
+        let users = profiles.data;
+
+        if (users.length !== this.props.users.length) {
+            //Check if all ids where returned.
+            //MM-Redux removes the current admin user from the result
+            const unknownIds = this.props.users.filter((userId) =>
+                !users.find((user) => user.id === userId)
+            );
+
+            // Add the unknown ids directly to display on the input
+            users = users.concat(unknownIds);
+        }
+
+        this.setState({users});
     }
 
     handleNameInput = (e) => {
@@ -39,15 +67,7 @@ export default class CustomAttribute extends React.Component {
         this.props.onChange({id: this.props.id, name: e.target.value, users: this.state.users, groups: this.state.groups});
     }
 
-    handleUsersInput = (inputUsers) => {
-        const userIds = inputUsers;
-
-        /*if (inputUsers) {
-            userIds = inputUsers.map((v) => {
-                return v.id;
-            });
-        }*/
-
+    handleUsersInput = (userIds) => {
         const usersEmpty = !userIds || !userIds.length;
         const groupsEmpty = !this.state.groups || this.state.groups.trim() === '';
 

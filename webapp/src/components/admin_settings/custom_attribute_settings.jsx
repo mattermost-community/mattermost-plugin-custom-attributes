@@ -8,65 +8,65 @@ import AddAttribute from './add_attribute.jsx';
 import CustomAttribute from './custom_attribute';
 
 export default class CustomAttributesSettings extends React.Component {
-        static propTypes = {
-            id: PropTypes.string.isRequired,
-            label: PropTypes.string.isRequired,
-            helpText: PropTypes.node,
-            value: PropTypes.any,
-            disabled: PropTypes.bool.isRequired,
-            config: PropTypes.object.isRequired,
-            currentState: PropTypes.object.isRequired,
-            license: PropTypes.object.isRequired,
-            setByEnv: PropTypes.bool.isRequired,
-            onChange: PropTypes.func.isRequired,
-            registerSaveAction: PropTypes.func.isRequired,
-            setSaveNeeded: PropTypes.func.isRequired,
-            unRegisterSaveAction: PropTypes.func.isRequired,
+    static propTypes = {
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        helpText: PropTypes.node,
+        value: PropTypes.any,
+        disabled: PropTypes.bool.isRequired,
+        config: PropTypes.object.isRequired,
+        currentState: PropTypes.object.isRequired,
+        license: PropTypes.object.isRequired,
+        setByEnv: PropTypes.bool.isRequired,
+        onChange: PropTypes.func.isRequired,
+        registerSaveAction: PropTypes.func.isRequired,
+        setSaveNeeded: PropTypes.func.isRequired,
+        unRegisterSaveAction: PropTypes.func.isRequired,
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            attributes: this.initAttributes(props.value),
+        };
+    }
+
+    initAttributes(attributes) {
+        if (!attributes) {
+            return new Map();
         }
 
-        constructor(props) {
-            super(props);
+        // Store the attributes in a map indexed by position
+        const attributesMap = new Map(attributes.map((a, index) => [index, a]));
+        return attributesMap;
+    }
 
-            this.state = {
-                attributes: this.initAttributes(props.value),
-            };
+    getAttributesList() {
+        if (this.state.attributes.size === 0) {
+            return (
+                <div style={styles.alertDiv}>
+                    <p style={styles.alertText}> {'You have no custom attributes yet.'}
+                    </p>
+                </div>
+            );
         }
 
-        initAttributes(attributes) {
-            if (!attributes) {
-                return new Map();
-            }
-
-            // Store the attributes in a map indexed by position
-            const attributesMap = new Map(attributes.map((a, index) => [index, a]));
-            return attributesMap;
-        }
-
-        getAttributesList() {
-            if (this.state.attributes.size === 0) {
-                return (
-                    <div style={styles.alertDiv}>
-                        <p style={styles.alertText}> {'You have no custom attributes yet.'}
-                        </p>
-                    </div>
-                );
-            }
-
-            return Array.from(this.state.attributes, ([key, value]) => {
-                return (
-                    <CustomAttribute
-                        key={key}
-                        id={key}
-                        name={value.Name}
-                        users={value.UserIDs}
-                        groups={value.GroupIDs ? value.GroupIDs.join(' ') : ''}
-                        markdownPreview={true}
-                        onChange={this.handleChange}
-                        onDelete={this.handleDelete}
-                    />
-                );
-            });
-        }
+        return Array.from(this.state.attributes, ([key, value]) => {
+            return (
+                <CustomAttribute
+                    key={key}
+                    id={key}
+                    name={value.Name}
+                    users={value.UserIDs}
+                    groups={value.GroupIDs ? value.GroupIDs.join(' ') : ''}
+                    markdownPreview={true}
+                    onChange={this.handleChange}
+                    onDelete={this.handleDelete}
+                />
+            );
+        });
+    }
 
     handleDelete = (id) => {
         this.state.attributes.delete(id);
