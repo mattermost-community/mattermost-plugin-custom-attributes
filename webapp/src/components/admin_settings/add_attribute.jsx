@@ -105,7 +105,7 @@ export default class AddAttribute extends React.Component {
                         >
                             {'Add Attribute'}
                         </button>
-                        <button 
+                        <button
                             className='btn btn-link'
                             onClick={this.handleCancel}
                         >
@@ -127,5 +127,5 @@ export default class AddAttribute extends React.Component {
 const styles = {
     buttonRow: {
         marginTop: '8px',
-    }
+    },
 };

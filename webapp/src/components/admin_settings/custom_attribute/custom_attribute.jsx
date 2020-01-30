@@ -195,5 +195,5 @@ const styles = {
     errorLabel: {
         margin: '8px 0 0',
         color: '#EB5757',
-    }
+    },
 };
