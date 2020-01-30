@@ -114,7 +114,6 @@ export default class CustomAttribute extends React.Component {
             deleteButton = (
                 <div
                     className='col-xs-12 col-sm-1'
-                    style={{paddingLeft: '5px'}}
                 >
                     <a
                         style={styles.deleteIcon}
@@ -132,15 +131,15 @@ export default class CustomAttribute extends React.Component {
         }
 
         return (
-            <React.Fragment>
-                {this.getMarkdownPreview()}
+            <div
+                style={styles.attributeRow}
+            >
+                <strong>{this.getMarkdownPreview()}</strong>
                 <div
                     className='row'
-                    style={{padding: '10px 0px'}}
                 >
                     <div
                         className='col-xs-12 col-sm-2'
-                        style={{padding: '0px'}}
                     >
                         <input
                             id={`name-${this.props.id}`}
@@ -169,21 +168,32 @@ export default class CustomAttribute extends React.Component {
                         />
                     </div>
                     {deleteButton}
-
                 </div>
-                {errorLabel}
-            </React.Fragment>);
+                <div style={styles.errorLabel}>
+                    {errorLabel}
+                </div>
+            </div>);
     }
 }
 
 const styles = {
+    attributeRow: {
+        margin: '12px 0',
+        borderBottom: '1px solid #ccc',
+        padding: '4px 0 12px',
+    },
     deleteIcon: {
+        textDecoration: 'none',
         height: '20px',
         width: '24px',
         color: '#DB1C34',
         fontFamily: 'material',
-        fontSize: '20px',
-        lineHeight: '20px',
-        paddingLeft: '5px',
+        fontSize: '32px',
+        lineHeight: '32px',
+        margin: '0 0 0 -12px',
     },
+    errorLabel: {
+        margin: '8px 0 0',
+        color: '#EB5757',
+    }
 };

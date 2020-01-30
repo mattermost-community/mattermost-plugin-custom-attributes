@@ -61,13 +61,13 @@ export default class AddAttribute extends React.Component {
     render() {
         if (this.state.collapsed) {
             return (
-                <div style={{paddingTop: '10px'}}>
+                <div>
                     <a
                         style={styles.addLink}
                         onClick={() => {
                             this.setState({collapsed: false});
                         }}
-                    >{'+ Add Custom Attribute'}</a>
+                    ><strong>{'+ Add Custom Attribute'}</strong></a>
                 </div>
             );
         }
@@ -95,26 +95,26 @@ export default class AddAttribute extends React.Component {
 
                 <div
                     className='row'
-                    style={{padding: '0px'}}
+                    style={styles.buttonRow}
                 >
-                    <div
-                        style={styles.buttonBorder}
-                        className='col-xs-12 col-sm-2'
-                    >
-                        <a
-                            style={styles.button}
+                    <div className='col-sm-12'>
+                        <button
+                            className='btn btn-primary'
+                            style={styles.buttonBorder}
                             onClick={this.handleSave}
                         >
                             {'Add Attribute'}
-                        </a>
-                    </div>
-                    <div className='col-xs-12 col-sm-2'>
-                        <a
-                            style={styles.button}
+                        </button>
+                        <button 
+                            className='btn btn-link'
                             onClick={this.handleCancel}
                         >
-                            {'Cancel'}
-                        </a>
+                            <a
+                                style={styles.button}
+                            >
+                                {'Cancel'}
+                            </a>
+                        </button>
                     </div>
                 </div>
                 {errorBanner}
@@ -125,27 +125,7 @@ export default class AddAttribute extends React.Component {
 }
 
 const styles = {
-    addLink: {
-        color: '#145DBF',
-        fontSize: '14px',
-        fontFamily: 'Open Sans',
-        fontWeight: '600',
-        lineHeight: '18px',
-    },
-    button: {
-        height: '19px',
-        width: '92px',
-        color: '#0A5AC2',
-        fontFamily: 'Open Sans',
-        fontSize: '14px',
-        fontWeight: '600',
-        lineHeight: '20px',
-    },
-    buttonBorder: {
-        boxSizing: 'border-box',
-        border: '1px solid #0A5AC2',
-        borderRadius: '4px',
-        height: '36px',
-        width: '118px',
-    },
+    buttonRow: {
+        marginTop: '8px',
+    }
 };

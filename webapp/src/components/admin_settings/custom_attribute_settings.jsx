@@ -46,8 +46,7 @@ export default class CustomAttributesSettings extends React.Component {
         if (this.state.attributes.size === 0) {
             return (
                 <div style={styles.alertDiv}>
-                    <p style={styles.alertText}> {'You have no custom attributes yet.'}
-                    </p>
+                    <div style={styles.alertText}> {'You have no custom attributes yet.'}</div>                    
                 </div>
             );
         }
@@ -99,7 +98,7 @@ export default class CustomAttributesSettings extends React.Component {
     render() {
         return (
             <div>
-                <p>{'Custom Attributes'}</p>
+                <strong>{'Custom Attributes'}</strong>
                 <div>
                     {this.getAttributesList()}
                     <AddAttribute
@@ -116,17 +115,10 @@ const styles = {
     alertDiv: {
         borderRadius: '4px',
         backgroundColor: 'rgba(0, 0, 0, .04)',
-        color: '#000000',
-        fontSize: '14px',
-        fontFamily: 'Open Sans',
-        height: '44px',
+        padding: '12px',
+        margin: '8px 0',
     },
     alertText: {
         opacity: '0.6',
-        color: '#000000',
-        fontFamily: 'Open Sans',
-        fontSize: '14px',
-        lineHeight: '1.5',
-        padding: '10px',
     },
 };

@@ -75,7 +75,15 @@ export default class UsersInput extends React.Component {
                 placeholder={this.props.placeholder}
                 value={this.props.users}
                 components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
+                styles={customStyles}
             />
         );
     }
+}
+
+const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      minHeight: 34,
+    }),
 }
