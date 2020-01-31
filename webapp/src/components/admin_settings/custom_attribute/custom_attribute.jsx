@@ -43,8 +43,9 @@ export default class CustomAttribute extends React.Component {
         let users = profiles.data;
 
         if (users.length !== this.props.users.length) {
-            //Check if all ids where returned.
-            //MM-Redux removes the current admin user from the result
+            // Check if all ids were returned.
+            // mattermost-redux removes the current admin user from the result at:
+            // https://github.com/mattermost/mattermost-redux/blob/5f5a8a5007661f6d54533c2b51299748338b5a65/src/actions/users.ts#L340
             const unknownIds = this.props.users.filter((userId) =>
                 !users.find((user) => user.id === userId)
             );

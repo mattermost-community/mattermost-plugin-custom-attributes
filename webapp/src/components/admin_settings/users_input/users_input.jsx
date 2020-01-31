@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce';
 import AsyncSelect from 'react-select/async';
 
 // UsersInput searches and selects user profiles displayed by username.
-// Users prop can handle the user profile object or strings direclty if the user object is not available.
+// Users prop can handle the user profile object or strings directly if the user object is not available.
 // Returns the selected users ids in the `OnChange` value parameter.
 export default class UsersInput extends React.Component {
     static propTypes = {
@@ -47,6 +47,8 @@ export default class UsersInput extends React.Component {
         this.props.actions.searchProfiles(term).then(({data}) => {
             callback(data);
         }).catch(() => {
+            // eslint-disable-next-line no-console
+            console.error('Error searching user profiles in custom attribute settings dropdown.');
             callback([]);
         });
     }, 150);
@@ -55,6 +57,8 @@ export default class UsersInput extends React.Component {
         try {
             this.debouncedSearchProfiles(term, callback);
         } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error(error);
             callback([]);
         }
     };

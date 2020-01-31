@@ -38,8 +38,7 @@ export default class CustomAttributesSettings extends React.Component {
         }
 
         // Store the attributes in a map indexed by position
-        const attributesMap = new Map(attributes.map((a, index) => [index, a]));
-        return attributesMap;
+        return new Map(attributes.map((a, index) => [index, a]));
     }
 
     getAttributesList() {
