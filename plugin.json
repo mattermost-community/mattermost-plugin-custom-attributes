@@ -5,6 +5,7 @@
     "homepage_url": "https://github.com/mattermost/mattermost-plugin-custom-attributes",
     "support_url": "https://github.com/mattermost/mattermost-plugin-custom-attributes/issues",
     "version": "1.1.0",
+    "min_server_version": "5.20.0",
     "server": {
         "executables": {
             "linux-amd64": "server/dist/plugin-linux-amd64",
@@ -16,6 +17,10 @@
         "bundle_path": "webapp/dist/main.js"
     },
     "settings_schema": {
-        "header": "Configure this plugin directly in the config.json file. Learn more [in our documentation](https://github.com/mattermost/mattermost-plugin-custom-attributes/blob/master/README.md).\n\nTo report an issue, make a suggestion or a contribution, [check the plugin repository](https://github.com/mattermost/mattermost-plugin-custom-attributes)."
+        "settings": [{
+            "key": "CustomAttributes",
+            "type": "custom", 
+            "display_name": "Custom Attributes"
+        }]
     }
 }

@@ -1,3 +1,6 @@
 dist
 server/dist
 webapp/dist
+.DS_Store
+node_modules
+.vscode
