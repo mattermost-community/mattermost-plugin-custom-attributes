@@ -120,7 +120,7 @@ export default class CustomAttribute extends React.Component {
                         style={styles.deleteIcon}
                         onClick={this.handleDelete}
                     >
-                        {'\u2296'}
+                        <i class="fa fa-trash"></i>
                     </a>
                 </div>
             );
