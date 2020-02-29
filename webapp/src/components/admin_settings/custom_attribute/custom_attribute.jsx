@@ -189,7 +189,7 @@ const styles = {
         width: '24px',
         color: '#DB1C34',
         fontFamily: 'material',
-        fontSize: '32px',
+        fontSize: '20px',
         lineHeight: '32px',
         margin: '0 0 0 -12px',
     },
