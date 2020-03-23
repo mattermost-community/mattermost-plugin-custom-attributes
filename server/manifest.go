@@ -5,5 +5,5 @@ var manifest = struct {
 	Version string
 }{
 	Id:      "com.mattermost.custom-attributes",
-	Version: "1.1.0",
+	Version: "1.2.0",
 }
