@@ -17,6 +17,7 @@ export default class CustomAttribute extends React.Component {
         onChange: PropTypes.func.isRequired,
         actions: PropTypes.shape({
             getProfilesByIds: PropTypes.func.isRequired,
+            getCustomEmojisInText: PropTypes.func.isRequired,
         }).isRequired,
     }
 
@@ -104,6 +105,8 @@ export default class CustomAttribute extends React.Component {
         if (!this.props.markdownPreview) {
             return null;
         }
+
+        this.props.actions.getCustomEmojisInText(this.state.name);
 
         const formattedText = formatText(this.state.name);
         return messageHtmlToComponent(formattedText);

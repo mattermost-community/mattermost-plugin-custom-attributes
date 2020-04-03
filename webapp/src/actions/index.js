@@ -1,3 +1,5 @@
+import {getCustomEmojisInText} from 'mattermost-redux/actions/emojis'
+
 import Client from '../client';
 import ActionTypes from '../action_types';
 import {id as pluginId} from '../manifest';
@@ -26,6 +28,8 @@ export function getAttributes(userID = '') {
             }
             return {error};
         }
+
+        (data || []).forEach((attribute) => dispatch(getCustomEmojisInText(attribute)));
 
         dispatch({
             type: ActionTypes.RECEIVED_ATTRIBUTES,
