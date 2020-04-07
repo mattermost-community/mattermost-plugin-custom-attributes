@@ -13,7 +13,7 @@ export function getAttributes(userID = '') {
             return {};
         }
 
-        let data;
+        let data = [];
         try {
             data = await Client.getAttributes(userID);
         } catch (error) {
@@ -29,7 +29,7 @@ export function getAttributes(userID = '') {
             return {error};
         }
 
-        (data || []).forEach((attribute) => dispatch(getCustomEmojisInText(attribute)));
+        data.forEach((attribute) => dispatch(getCustomEmojisInText(attribute)));
 
         dispatch({
             type: ActionTypes.RECEIVED_ATTRIBUTES,
