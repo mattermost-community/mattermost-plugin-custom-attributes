@@ -1,4 +1,4 @@
-import {getCustomEmojisInText} from 'mattermost-redux/actions/emojis'
+import {getCustomEmojisInText} from 'mattermost-redux/actions/emojis';
 
 import Client from '../client';
 import ActionTypes from '../action_types';
