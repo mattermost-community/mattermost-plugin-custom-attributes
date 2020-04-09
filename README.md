@@ -1,4 +1,9 @@
-# Mattermost Custom Attributes Plugin [![CircleCI](https://circleci.com/gh/mattermost/mattermost-plugin-custom-attributes.svg?style=svg)](https://circleci.com/gh/mattermost/mattermost-plugin-custom-attributes)
+# Mattermost Custom Attributes Plugin 
+
+[![CircleCI](https://circleci.com/gh/mattermost/mattermost-plugin-custom-attributes.svg?style=svg)](https://circleci.com/gh/mattermost/mattermost-plugin-custom-attributes)
+
+**Maintainer:** [@marianunez](https://github.com/marianunez)
+**Co-Maintainer:** [@larkox](https://github.com/larkox)
 
 This plugin adds custom attributes to users in your Mattermost instance.
 
