@@ -19,7 +19,7 @@ We use this plugin on https://community.mattermost.com to distinguish Mattermost
 
 Install via Plugin Marketplace (Recommended)
  - Go to Main Menu > Plugin Marketplace in Mattermost
- - Search for "Custom Attribute" or manually find the plugin from the list and click **Install**
+ - Search for "Custom Attributes" or manually find the plugin from the list and click **Install**
  - After the plugin has downloaded and been installed, click the **Configure** button
  - Set **Enable Plugin** to **True**, then click "Save" at the bottom of the screen
  - Proceed to Configure your Attribute rules
@@ -106,4 +106,3 @@ Use `make check-style` to check the style.
 Use `make deploy` to deploy the plugin to your local server.
 
 For additional information on developing plugins, refer to [our plugin developer documentation](https://developers.mattermost.com/extend/plugins/).
-
