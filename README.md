@@ -5,7 +5,8 @@
 **Maintainer:** [@marianunez](https://github.com/marianunez)
 **Co-Maintainer:** [@larkox](https://github.com/larkox)
 
-This plugin adds custom attributes to users in your Mattermost instance.  You can specify an Attribute, and then specify specific users or groups of users that display that attribute on their public profile so other users can identify them easily.  This can be useful when there are Team Leads, Timezones, etc. and makes it easy to show who is on a particular team or Project.  
+This plugin adds custom attributes to users in your Mattermost instance.  You can specify an Attribute, and then specify specific users or groups which will display that attribute on their public profile - so other users can identify them easily.  This can be useful when there are Team Leads, Timezones, etc. and makes it easy to show who is on a particular team or Project.  
+
 Currently the plugin only exposes the specified attributes in the user profile popover, but this plugin could be extended to allow displaying attributes elsewhere in the user interface, such as badges next to usernames. 
 
 We use this plugin on https://community.mattermost.com to distinguish Mattermost core committers and staff.
@@ -37,9 +38,11 @@ Before you start, Identify the attributes you want to display on a user's profil
 ## Example
 
 Here are some example rules for two users:
+
 ![2020-04-14_12-18-50](https://user-images.githubusercontent.com/915956/79267023-4eeda480-7e4d-11ea-9279-e77c97d737be.png)
 
 Their respective profile popvers display their information:
+
 ![2020-04-14_12-19-24](https://user-images.githubusercontent.com/915956/79267480-169a9600-7e4e-11ea-8c04-4775a395ff5b.png)
 
 
