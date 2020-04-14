@@ -27,10 +27,11 @@ Install via Plugin Marketplace (Recommended)
  
 Before you start, Identify the attributes you want to display on a user's profile popover.  These can contain emojis. Some examples could be "Timezone:PST", "Development Team", "Executive Team Member", "Mentor", etc. then Identify the groups or particular usernames that should display those atrributes.  A spreadsheet can help to organize things.
 
-![2020-04-14_12-12-46](https://user-images.githubusercontent.com/915956/79266979-3e3d2e80-7e4d-11ea-8a4d-80f78bd81d79.png)
-
 1. Click "Add Custom Attribute" button, a text box will appear.  Add text and/or emojis to the field.  This text will be displayed on a user's profile.
+![2020-04-14_12-12-46](https://user-images.githubusercontent.com/915956/79266979-3e3d2e80-7e4d-11ea-8a4d-80f78bd81d79.png)
 2. Specify which users should have that attribute displayed on their profile.  You can specify individual users or a Mattermost group ID (this ID needs to be copy/pasted from the group).  The Mattermost group could be synched with an LDAP group to dynamically display attributes to user profiles, based on which LDAP group they currently belong to. 
+![image](https://user-images.githubusercontent.com/915956/79267902-c07a2280-7e4e-11ea-8eed-96bc2fc9bde9.png)
+
 3. Click "Save"
 
 ## Example
