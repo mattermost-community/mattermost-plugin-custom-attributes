@@ -13,7 +13,12 @@ We use this plugin on https://community.mattermost.com to distinguish Mattermost
 
 ![image](https://user-images.githubusercontent.com/13119842/58710612-b5c7b380-838a-11e9-9974-4487daf82da5.png)
 
+
 # Version 1.20 (Latest)
+
+## Requirements
+- Mattermost Sever 5.20+
+- To use the "Group" features in this plugin requires a [Mattermost E20 Licence](https://mattermost.com/pricing/) to enable the AD/LDAP Groups Feature
 
 ## Installation
 
@@ -30,7 +35,7 @@ Before you start, Identify the attributes you want to display on a user's profil
 
 1. Click "Add Custom Attribute" button, a text box will appear.  Add the text that would appear in the user's profile popover. The text supports markdown and could include emojis and/or links, i.e. "[Integrations Team](https://developers.mattermost.com/internal/rd-teams/#integrations-team)"
 ![2020-04-14_12-12-46](https://user-images.githubusercontent.com/915956/79266979-3e3d2e80-7e4d-11ea-8a4d-80f78bd81d79.png)
-2. Specify which users should have that attribute displayed on their profile.  You can specify individual users or a Mattermost group ID (this ID needs to be copy/pasted from the group).  The Mattermost group could be synched with an LDAP group to dynamically display attributes to user profiles, based on which LDAP group they currently belong to. 
+2. Specify which users should have that attribute displayed on their profile.  You can specify individual users or a Mattermost group ID (this ID needs to be copy/pasted from the group).  The Mattermost group could be synched with an LDAP group to dynamically display attributes to user profiles, based on which LDAP group they currently belong to (this requires an E20 licence to enable AD/LDAP Groups). 
 ![image](https://user-images.githubusercontent.com/915956/79267902-c07a2280-7e4e-11ea-8eed-96bc2fc9bde9.png)
 
 3. Click "Save"
