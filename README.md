@@ -5,7 +5,7 @@
 **Maintainer:** [@marianunez](https://github.com/marianunez)
 **Co-Maintainer:** [@larkox](https://github.com/larkox)
 
-This plugin adds custom attributes to users in your Mattermost instance.  You can specify an Attribute, and then specify specific users or groups which will display that attribute on their public profile - so other users can identify them easily.  This can be useful when there are Team Leads, Timezones, etc. and makes it easy to show who is on a particular team or Project.  
+This plugin adds custom attributes to users in your Mattermost instance.  You can specify an Attribute, and then specify specific users, teams or groups which will display that attribute on their public profile - so other users can identify them easily.  This can be useful when there are Team Leads, Timezones, etc. and makes it easy to show who is on a particular team or Project.  
 
 Currently the plugin only exposes the specified attributes in the user profile popover, but this plugin could be extended to allow displaying attributes elsewhere in the user interface, such as badges next to usernames. 
 
@@ -31,12 +31,13 @@ Install via Plugin Marketplace (Recommended)
  
  ## Configuration
  
-Before you start, Identify the attributes you want to display on a user's profile popover.  These can contain emojis. Some examples could be "Timezone:PST", "Development Team", "Executive Team Member", "Mentor", etc. then Identify the groups or particular usernames that should display those atrributes.  A spreadsheet can help to organize things.
+Before you start, Identify the attributes you want to display on a user's profile popover.  These can contain emojis. Some examples could be "Timezone:PST", "Development Team", "Executive Team Member", "Mentor", etc. then Identify the groups, teams or particular usernames that should display those atrributes.  A spreadsheet can help to organize things.
 
 1. Click "Add Custom Attribute" button, a text box will appear.  Add the text that would appear in the user's profile popover. The text supports markdown and could include emojis and/or links, i.e. "[Integrations Team](https://developers.mattermost.com/internal/rd-teams/#integrations-team)"
 ![2020-04-14_12-12-46](https://user-images.githubusercontent.com/915956/79266979-3e3d2e80-7e4d-11ea-8a4d-80f78bd81d79.png)
-2. Specify which users should have that attribute displayed on their profile.  You can specify individual users or a Mattermost group ID (this ID needs to be copy/pasted from the group).  The Mattermost group could be synched with an LDAP group to dynamically display attributes to user profiles, based on which LDAP group they currently belong to (this requires an E20 licence to enable AD/LDAP Groups). 
-![image](https://user-images.githubusercontent.com/915956/79267902-c07a2280-7e4e-11ea-8eed-96bc2fc9bde9.png)
+2. Specify which users should have that attribute displayed on their profile.  You can specify individual users, a Mattermost team name, or a Mattermost group ID (this ID needs to be copy/pasted from the group).  The Mattermost group could be synched with an LDAP group to dynamically display attributes to user profiles, based on which LDAP group they currently belong to (this requires an E20 licence to enable AD/LDAP Groups). 
+![2020-06-21_22-51-13](https://user-images.githubusercontent.com/45119518/85234976-a726c100-b411-11ea-9477-7133c6a6d45b.png)
+
 
 3. Click "Save"
 
@@ -46,7 +47,7 @@ Here are some example rules for two users:
 
 ![2020-04-14_12-18-50](https://user-images.githubusercontent.com/915956/79267023-4eeda480-7e4d-11ea-9279-e77c97d737be.png)
 
-Their respective profile popvers display their information:
+Their respective profile popovers display their information:
 
 ![2020-04-14_12-19-24](https://user-images.githubusercontent.com/915956/79267480-169a9600-7e4e-11ea-8c04-4775a395ff5b.png)
 
@@ -66,8 +67,11 @@ To add a custom attribute, edit your `config.json` file and add a "CustomAttribu
 
 An attribute should have a `Name` field for what is displayed in the user interface as the attribute and an array of `UserIDs` for the users this attribute should apply to. The `Name` field can include Markdown, emojis and links.
 
+You can fill an array of Mattermost team ID's to the `TeamIDs` parameter, and the `Name` will then be displayed
+for all members of these teams.
+
 You can also add an array of Mattermost group ID's to the `GroupIDs` parameter. The `Name` will then be displayed
-for all memebers who are apart of that group.
+for all members who are apart of that group.
 
 Below is an example:
 
@@ -81,11 +85,13 @@ Below is an example:
                 {
                     "Name": ":mattermost: [Core Committer](https://developers.mattermost.com/contribute/getting-started/core-committers/)",
                     "UserIDs": ["someuserID1", "someuserID2"],
+                    "TeamIDs": ["someteamID1", "someteamID2"],
                     "GroupIDs":["somegroupID1","somegroupID2"]
                 },
                 {
                     "Name": ":mattermost: Staff",
                     "UserIDs": ["someuserID3", "someuserID4"],
+                    "TeamIDs": ["someteamID3", "someteamID4"],
                     "GroupIDs":["somegroupID3","somegroupID4"]
                 }
             ]
