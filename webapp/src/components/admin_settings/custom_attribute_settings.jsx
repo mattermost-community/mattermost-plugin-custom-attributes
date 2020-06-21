@@ -57,6 +57,7 @@ export default class CustomAttributesSettings extends React.Component {
                     id={key}
                     name={value.Name}
                     users={value.UserIDs}
+                    teams={value.TeamIDs}
                     groups={value.GroupIDs ? value.GroupIDs.join(' ') : ''}
                     markdownPreview={true}
                     onChange={this.handleChange}
@@ -73,7 +74,7 @@ export default class CustomAttributesSettings extends React.Component {
         this.props.setSaveNeeded();
     }
 
-    handleChange = ({id, name, users, groups}) => {
+    handleChange = ({id, name, users, teams, groups}) => {
         let userIds = [];
         if (users) {
             userIds = users.map((v) => {
@@ -84,9 +85,21 @@ export default class CustomAttributesSettings extends React.Component {
                 return v;
             });
         }
+
+        let teamIds = [];
+        if (teams) {
+            teamIds = teams.map((team) => {
+                if (team.id) {
+                    return team.id;
+                }
+                return team;
+            });
+        }
+
         this.state.attributes.set(id, {
             Name: name,
             UserIDs: userIds,
+            TeamIDs: teamIds,
             GroupIDs: groups ? groups.split(' ') : '',
         });
 

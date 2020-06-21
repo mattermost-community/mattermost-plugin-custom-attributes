@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import UsersInput from '../users_input';
+import TeamsInput from '../teams_input';
 
 const {formatText, messageHtmlToComponent} = window.PostUtils;
 
@@ -10,6 +11,7 @@ export default class CustomAttribute extends React.Component {
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         users: PropTypes.array,
+        teams: PropTypes.array,
         groups: PropTypes.array,
         hideDelete: PropTypes.bool,
         markdownPreview: PropTypes.bool,
@@ -17,6 +19,7 @@ export default class CustomAttribute extends React.Component {
         onChange: PropTypes.func.isRequired,
         actions: PropTypes.shape({
             getProfilesByIds: PropTypes.func.isRequired,
+            getTeam: PropTypes.func.isRequired,
             getCustomEmojisInText: PropTypes.func.isRequired,
         }).isRequired,
     }
@@ -31,6 +34,7 @@ export default class CustomAttribute extends React.Component {
         };
 
         this.initUsers();
+        this.initTeams();
     }
 
     // initUsers fetches user profiles for the users ids passed in props
@@ -58,6 +62,27 @@ export default class CustomAttribute extends React.Component {
         this.setState({users});
     }
 
+    // initTeams fetches teams informations for the teams ids passed in props
+    async initTeams() {
+        if (!this.props.teams || !this.props.teams.length) {
+            return;
+        }
+
+        var teamsData = [];
+        for (let i = 0; i < this.props.teams.length; i++) {
+            teamsData.push(this.props.actions.getTeam(this.props.teams[i]));
+        }
+
+        var teams = [];
+        await Promise.all(teamsData).then((values) => {
+            values.forEach((value) => {
+                teams.push(value.data);
+            });
+        });
+
+        this.setState({teams});
+    }
+
     handleNameInput = (e) => {
         if (!e.target.value || e.target.value.trim() === '') {
             this.setState({error: 'Attribute name cannot be empty.'});
@@ -66,35 +91,52 @@ export default class CustomAttribute extends React.Component {
         }
 
         this.setState({name: e.target.value});
-        this.props.onChange({id: this.props.id, name: e.target.value, users: this.state.users, groups: this.state.groups});
+        this.props.onChange({id: this.props.id, name: e.target.value, users: this.state.users, teams: this.state.teams, groups: this.state.groups});
     }
 
     handleUsersInput = (userIds) => {
         const usersEmpty = !userIds || !userIds.length;
+        const teamsEmpty = !this.state.teams || !this.state.teams.length;
         const groupsEmpty = !this.state.groups || this.state.groups.trim() === '';
 
-        if (usersEmpty && groupsEmpty) {
-            this.setState({error: 'Attribute must include at least one user or group.'});
+        if (usersEmpty && teamsEmpty && groupsEmpty) {
+            this.setState({error: 'Attribute must include at least one user, team or group.'});
         } else if (this.state.name) {
             this.setState({error: null});
         }
 
         this.setState({users: userIds});
-        this.props.onChange({id: this.props.id, name: this.state.name, users: userIds, groups: this.state.groups});
+        this.props.onChange({id: this.props.id, name: this.state.name, users: userIds, teams: this.state.teams, groups: this.state.groups});
+    }
+
+    handleTeamsInput = (teamsIds) => {
+        const usersEmpty = !this.state.users || !this.state.users.length;
+        const teamsEmpty = !teamsIds || !teamsIds.length;
+        const groupsEmpty = !this.state.groups || this.state.groups.trim() === '';
+
+        if (usersEmpty && teamsEmpty && groupsEmpty) {
+            this.setState({error: 'Attribute must include at least one user, team or group.'});
+        } else if (this.state.name) {
+            this.setState({error: null});
+        }
+
+        this.setState({teams: teamsIds});
+        this.props.onChange({id: this.props.id, name: this.state.name, users: this.state.users, teams: teamsIds, groups: this.state.groups});
     }
 
     handleGroupsInput = (e) => {
-        const usersEmpty = !e.target.value || e.target.value.trim() === '';
-        const groupsEmpty = !this.state.groups || this.state.groups.trim() === '';
+        const usersEmpty = !this.state.users || !this.state.users.length;
+        const teamsEmpty = !this.state.teams || !this.state.teams.length;
+        const groupsEmpty = !e.target.value || e.target.value.trim() === '';
 
-        if (usersEmpty && groupsEmpty) {
-            this.setState({error: 'Attribute must include at least one user or group.'});
+        if (usersEmpty && teamsEmpty && groupsEmpty) {
+            this.setState({error: 'Attribute must include at least one user, team or group.'});
         } else if (this.state.name) {
             this.setState({error: null});
         }
 
         this.setState({groups: e.target.value});
-        this.props.onChange({id: this.props.id, name: this.state.name, users: this.state.users, groups: e.target.value});
+        this.props.onChange({id: this.props.id, name: this.state.name, users: this.state.users, teams: this.state.teams, groups: e.target.value});
     }
 
     handleDelete = () => {
@@ -154,14 +196,21 @@ export default class CustomAttribute extends React.Component {
                             onChange={this.handleNameInput}
                         />
                     </div>
-                    <div className='col-xs-12 col-sm-5'>
+                    <div className='col-xs-12 col-sm-3'>
                         <UsersInput
                             placeholder='@username1 @username2'
                             users={this.state.users}
                             onChange={this.handleUsersInput}
                         />
                     </div>
-                    <div className='col-xs-12 col-sm-4'>
+                    <div className='col-xs-12 col-sm-3'>
+                        <TeamsInput
+                            placeholder='teamName1 teamName2'
+                            teams={this.state.teams}
+                            onChange={this.handleTeamsInput}
+                        />
+                    </div>
+                    <div className='col-xs-12 col-sm-3'>
                         <input
                             id={`groups-${this.props.id}`}
                             className='form-control'
