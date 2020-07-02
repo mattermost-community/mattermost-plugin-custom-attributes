@@ -7,7 +7,7 @@ import AsyncSelect from 'react-select/async';
 // TeamsInput searches and selects teams displayed by display_name.
 // Teams prop can handle the team object or strings directly if the team object is not available.
 // Returns the selected team ids in the `OnChange` value parameter.
-export default class TeamsInput extends React.Component {
+export default class TeamsInput extends React.PureComponent {
     static propTypes = {
         placeholder: PropTypes.string,
         teams: PropTypes.array,
@@ -43,25 +43,18 @@ export default class TeamsInput extends React.Component {
         return option;
     }
 
-    debouncedSearchTeams = debounce((term, callback) => {
-        this.props.actions.searchTeams(term).then(({data}) => {
+    searchTeams = debounce((term, callback) => {
+        this.props.actions.searchTeams(term).then(({data, error}) => {
+            if (error) {
+                // eslint-disable-next-line no-console
+                console.error('Error searching team in custom attribute settings dropdown.' + error.message);
+                callback([]);
+                return;
+            }
+
             callback(data);
-        }).catch(() => {
-            // eslint-disable-next-line no-console
-            console.error('Error searching teams in custom attribute settings dropdown.');
-            callback([]);
         });
     }, 150);
-
-    teamsLoader = (term, callback) => {
-        try {
-            this.debouncedSearchTeams(term, callback);
-        } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error(error);
-            callback([]);
-        }
-    };
 
     render() {
         return (
@@ -69,7 +62,7 @@ export default class TeamsInput extends React.Component {
                 isMulti={true}
                 cacheOptions={true}
                 defaultOptions={false}
-                loadOptions={this.teamsLoader}
+                loadOptions={this.searchTeams}
                 onChange={this.onChange}
                 getOptionValue={this.getOptionValue}
                 formatOptionLabel={this.formatOptionLabel}

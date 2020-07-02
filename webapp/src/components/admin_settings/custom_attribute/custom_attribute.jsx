@@ -68,17 +68,9 @@ export default class CustomAttribute extends React.Component {
             return;
         }
 
-        var teamsData = [];
-        for (let i = 0; i < this.props.teams.length; i++) {
-            teamsData.push(this.props.actions.getTeam(this.props.teams[i]));
-        }
-
-        var teams = [];
-        await Promise.all(teamsData).then((values) => {
-            values.forEach((value) => {
-                teams.push(value.data);
-            });
-        });
+        const teamPromises = this.props.teams.map(this.props.actions.getTeam);
+        const responses = await Promise.all(teamPromises);
+        const teams = responses.filter((res) => !res.error).map((res) => res.data);
 
         this.setState({teams});
     }
