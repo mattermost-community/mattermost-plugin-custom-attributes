@@ -47,7 +47,7 @@ export default class TeamsInput extends React.PureComponent {
         this.props.actions.searchTeams(term).then(({data, error}) => {
             if (error) {
                 // eslint-disable-next-line no-console
-                console.error('Error searching team in custom attribute settings dropdown.' + error.message);
+                console.error('Error searching team in custom attribute settings dropdown. ' + error.message);
                 callback([]);
                 return;
             }
