@@ -24,6 +24,7 @@ type configuration struct {
 type CustomAttribute struct {
 	Name     string
 	UserIDs  []string
+	TeamIDs  []string
 	GroupIDs []string
 }
 
@@ -40,6 +41,15 @@ func (c *configuration) Clone() *configuration {
 		for i2, id := range ca.UserIDs {
 			caClone.UserIDs[i2] = id
 		}
+		caClone.TeamIDs = make([]string, len(ca.TeamIDs))
+		for i2, id := range ca.TeamIDs {
+			caClone.TeamIDs[i2] = id
+		}
+		caClone.GroupIDs = make([]string, len(ca.GroupIDs))
+		for i2, id := range ca.GroupIDs {
+			caClone.GroupIDs[i2] = id
+		}
+
 		clone.CustomAttributes[i1] = caClone
 	}
 

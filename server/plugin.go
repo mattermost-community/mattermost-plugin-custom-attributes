@@ -56,12 +56,13 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 	}
 
 	attributes := []string{}
+	usersTeams, _ := p.API.GetTeamsForUser(userID)
 	usersGroups, _ := p.API.GetGroupsForUser(userID)
 	for _, ca := range config.CustomAttributes {
-		if ca.UserIDs == nil && ca.GroupIDs == nil {
+		if ca.UserIDs == nil && ca.TeamIDs == nil && ca.GroupIDs == nil {
 			continue
 		}
-		if sliceContainsString(ca.UserIDs, userID) || sliceContainsUserGroup(ca.GroupIDs, usersGroups) {
+		if sliceContainsString(ca.UserIDs, userID) || sliceContainsUserTeam(ca.TeamIDs, usersTeams) || sliceContainsUserGroup(ca.GroupIDs, usersGroups) {
 			attributes = append(attributes, ca.Name)
 		}
 	}
@@ -80,6 +81,17 @@ func sliceContainsString(arr []string, str string) bool {
 	for _, a := range arr {
 		if a == str {
 			return true
+		}
+	}
+	return false
+}
+
+func sliceContainsUserTeam(arr []string, userTeams []*model.Team) bool {
+	for _, a := range arr {
+		for _, userTeam := range userTeams {
+			if a == userTeam.Id {
+				return true
+			}
 		}
 	}
 	return false

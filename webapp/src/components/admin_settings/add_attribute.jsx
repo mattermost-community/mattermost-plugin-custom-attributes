@@ -10,6 +10,7 @@ export default class AddAttribute extends React.Component {
         id: PropTypes.string,
         name: PropTypes.string,
         users: PropTypes.array,
+        teams: PropTypes.array,
         groups: PropTypes.array,
         onChange: PropTypes.func.isRequired,
     }
@@ -21,6 +22,7 @@ export default class AddAttribute extends React.Component {
             collapsed: true,
             name: this.props.name,
             users: this.props.users,
+            teams: this.props.teams,
             groups: this.props.groups,
             error: false,
         };
@@ -31,29 +33,32 @@ export default class AddAttribute extends React.Component {
             collapsed: true,
             name: null,
             users: null,
+            teams: null,
             groups: null,
             error: false,
         });
     }
 
-    onInput = ({name, users, groups}) => {
-        this.setState({name, users, groups, error: false});
+    onInput = ({name, users, teams, groups}) => {
+        this.setState({name, users, teams, groups, error: false});
     }
 
     handleSave = () => {
         const usersEmpty = !this.state.users || !this.state.users.length;
+        const teamsEmpty = !this.state.teams || !this.state.teams.length;
         const groupsEmpty = !this.state.groups || this.state.groups.trim() === '';
 
-        if (!this.state.name || this.state.name.trim() === '' || (usersEmpty && groupsEmpty)) {
+        if (!this.state.name || this.state.name.trim() === '' || (usersEmpty && teamsEmpty && groupsEmpty)) {
             this.setState({error: true});
             return;
         }
 
-        this.props.onChange({id: this.props.id, name: this.state.name, users: this.state.users, groups: this.state.groups});
+        this.props.onChange({id: this.props.id, name: this.state.name, users: this.state.users, teams: this.state.teams, groups: this.state.groups});
         this.setState({
             collapsed: true,
             name: null,
             users: null,
+            teams: null,
             groups: null,
         });
     }
@@ -76,7 +81,7 @@ export default class AddAttribute extends React.Component {
         if (this.state.error) {
             errorBanner = (
                 <div style={styles.alertDiv}>
-                    <p style={styles.alertText}> {'You must provide a value for name and users or group.'}
+                    <p style={styles.alertText}> {'You must provide a value for name and users, teams or group.'}
                     </p>
                 </div>
             );
@@ -87,6 +92,7 @@ export default class AddAttribute extends React.Component {
                 <CustomAttribute
                     name={this.props.name}
                     users={this.props.users}
+                    teams={this.props.teams}
                     groups={this.props.groups}
                     onChange={this.onInput}
                     hideDelete={true}
