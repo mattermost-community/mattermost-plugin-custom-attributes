@@ -74,7 +74,10 @@ func (p *Plugin) handleGetAttributes(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(b)
+	_, err := w.Write(b)
+	if err != nil {
+		p.API.LogError("failed to write http response", err.Error())
+	}
 }
 
 func sliceContainsString(arr []string, str string) bool {
