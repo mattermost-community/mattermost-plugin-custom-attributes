@@ -68,10 +68,14 @@ export default class CustomAttributesSettings extends React.Component {
     }
 
     handleDelete = (id) => {
+        
+        if(confirm("Are you sure you want to delete the custom attribute : " + Array.from(this.state.attributes.values())[id]["Name"]))
+        {      
         this.state.attributes.delete(id);
-
         this.props.onChange(this.props.id, Array.from(this.state.attributes.values()));
         this.props.setSaveNeeded();
+        }
+        
     }
 
     handleChange = ({id, name, users, teams, groups}) => {
