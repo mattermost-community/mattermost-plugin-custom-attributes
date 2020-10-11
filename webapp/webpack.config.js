@@ -1,21 +1,15 @@
 var path = require('path');
 
 module.exports = {
-    entry: [
-        './src/index.js',
-    ],
+    entry: ['./src/index.js'],
     resolve: {
-        modules: [
-            'src',
-            'node_modules',
-            path.resolve(__dirname),
-        ],
-        extensions: ['*', '.js', '.jsx'],
+        modules: ['src', 'node_modules', path.resolve(__dirname)],
+        extensions: ['*', '.js', '.jsx', '.tsx'],
     },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(js|jsx|ts|tsx)?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
@@ -26,22 +20,29 @@ module.exports = {
                             '@babel/plugin-proposal-object-rest-spread',
                         ],
                         presets: [
-                            ['@babel/preset-env', {
-                                targets: {
-                                    chrome: 66,
-                                    firefox: 60,
-                                    edge: 42,
-                                    safari: 12,
+                            [
+                                '@babel/preset-env',
+                                {
+                                    targets: {
+                                        chrome: 66,
+                                        firefox: 60,
+                                        edge: 42,
+                                        safari: 12,
+                                    },
+                                    corejs: 3,
+                                    modules: false,
+                                    debug: false,
+                                    useBuiltIns: 'usage',
+                                    shippedProposals: true,
                                 },
-                                corejs: 3,
-                                modules: false,
-                                debug: false,
-                                useBuiltIns: 'usage',
-                                shippedProposals: true,
-                            }],
-                            ['@babel/preset-react', {
-                                useBuiltIns: true,
-                            }],
+                            ],
+                            [
+                                '@babel/preset-react',
+                                {
+                                    useBuiltIns: true,
+                                },
+                            ],
+                            ['@babel/preset-typescript', {allowNamespaces: true}],
                         ],
                     },
                 },

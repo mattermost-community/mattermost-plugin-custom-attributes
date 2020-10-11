@@ -34,9 +34,9 @@ func deploy() error {
 	bundlePath := os.Args[2]
 
 	siteURL := os.Getenv("MM_SERVICESETTINGS_SITEURL")
-	adminToken := os.Getenv("MM_ADMIN_TOKEN")
-	adminUsername := os.Getenv("MM_ADMIN_USERNAME")
-	adminPassword := os.Getenv("MM_ADMIN_PASSWORD")
+	adminToken := os.Getenv("MM_ADMIN_sTOKEN")
+	adminUsername := os.Getenv("MM_ADMIsN_USERNAME")
+	adminPassword := os.Getenv("MM_ADMIsN_PASSWORD")
 	copyTargetDirectory, _ := filepath.Abs("../mattermost-server")
 
 	if siteURL != "" {
