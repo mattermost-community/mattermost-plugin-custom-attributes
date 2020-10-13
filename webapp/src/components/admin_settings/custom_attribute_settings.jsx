@@ -75,14 +75,20 @@ export default class CustomAttributesSettings extends React.Component {
   }
 
   triggerDeleteModal = (id) => {
-      this.setState({showDeleteModal: true, deleteModalData: {id, Name: Array.from(this.state.attributes.values())[id].Name}});
+      this.setState({
+          showDeleteModal: true,
+          deleteModalData: {
+              id,
+              Name: Array.from(this.state.attributes.values())[id].Name,
+          },
+      });
   };
 
   handleDelete = (id) => {
       this.state.attributes.delete(id);
       this.props.onChange(
           this.props.id,
-          Array.from(this.state.attributes.values()),
+          Array.from(this.state.attributes.values())
       );
       this.props.setSaveNeeded();
       this.setState({showDeleteModal: false});
@@ -119,7 +125,7 @@ export default class CustomAttributesSettings extends React.Component {
 
       this.props.onChange(
           this.props.id,
-          Array.from(this.state.attributes.values()),
+          Array.from(this.state.attributes.values())
       );
       this.props.setSaveNeeded();
   };
@@ -140,7 +146,8 @@ export default class CustomAttributesSettings extends React.Component {
                   title={'Delete Attribute'}
                   message={
                       'Are you sure you want to remove the attribute : "' +
-            this.state.deleteModalData.Name + '" ?'
+            this.state.deleteModalData.Name +
+            '" ?'
                   }
                   confirmButtonText={'Remove Attribute'}
                   onConfirm={() => {
