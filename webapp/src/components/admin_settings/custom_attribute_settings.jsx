@@ -49,10 +49,7 @@ export default class CustomAttributesSettings extends React.Component {
         if (this.state.attributes.size === 0) {
             return (
                 <div style={styles.alertDiv}>
-                    <div style={styles.alertText}>
-                        {' '}
-                        {'You have no custom attributes yet.'}
-                    </div>
+                    <div style={styles.alertText}>{'You have no custom attributes yet.'}</div>
                 </div>
             );
         }
