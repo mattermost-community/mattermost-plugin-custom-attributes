@@ -130,7 +130,7 @@ export default class CustomAttributesSettings extends React.Component {
                     show={this.state.showDeleteModal}
                     title={'Delete Attribute'}
                     message={
-                        'Are you sure you want to remove the attribute : "' +
+                        'Are you sure you want to remove the attribute: "' +
                         this.state.deleteModalData.Name + '" ?'
                     }
                     confirmButtonText={'Remove Attribute'}
