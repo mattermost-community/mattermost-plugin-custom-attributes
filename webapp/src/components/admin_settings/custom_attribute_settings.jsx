@@ -77,8 +77,7 @@ export default class CustomAttributesSettings extends React.Component {
 
     handleDelete = (id) => {
         this.state.attributes.delete(id);
-        this.props.onChange(this.props.id, Array.from(this.state.attributes.values()),
-        );
+        this.props.onChange(this.props.id, Array.from(this.state.attributes.values()));
         this.props.setSaveNeeded();
         this.setState({showDeleteModal: false});
     };
