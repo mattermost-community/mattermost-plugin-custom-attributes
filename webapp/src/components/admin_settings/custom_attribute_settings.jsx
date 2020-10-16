@@ -4,6 +4,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import ConfirmModal from '../widgets/confirmation_modal.tsx';
+
 import AddAttribute from './add_attribute.jsx';
 import CustomAttribute from './custom_attribute';
 
@@ -22,13 +24,15 @@ export default class CustomAttributesSettings extends React.Component {
         registerSaveAction: PropTypes.func.isRequired,
         setSaveNeeded: PropTypes.func.isRequired,
         unRegisterSaveAction: PropTypes.func.isRequired,
-    }
+    };
 
     constructor(props) {
         super(props);
 
         this.state = {
             attributes: this.initAttributes(props.value),
+            showDeleteModal: false,
+            deleteModalData: {},
         };
     }
 
@@ -45,7 +49,7 @@ export default class CustomAttributesSettings extends React.Component {
         if (this.state.attributes.size === 0) {
             return (
                 <div style={styles.alertDiv}>
-                    <div style={styles.alertText}> {'You have no custom attributes yet.'}</div>
+                    <div style={styles.alertText}>{'You have no custom attributes yet.'}</div>
                 </div>
             );
         }
@@ -61,18 +65,22 @@ export default class CustomAttributesSettings extends React.Component {
                     groups={value.GroupIDs ? value.GroupIDs.join(' ') : ''}
                     markdownPreview={true}
                     onChange={this.handleChange}
-                    onDelete={this.handleDelete}
+                    onDelete={this.triggerDeleteModal}
                 />
             );
         });
     }
 
+    triggerDeleteModal = (id) => {
+        this.setState({showDeleteModal: true, deleteModalData: {id, Name: Array.from(this.state.attributes.values())[id].Name}});
+    };
+
     handleDelete = (id) => {
         this.state.attributes.delete(id);
-
         this.props.onChange(this.props.id, Array.from(this.state.attributes.values()));
         this.props.setSaveNeeded();
-    }
+        this.setState({showDeleteModal: false});
+    };
 
     handleChange = ({id, name, users, teams, groups}) => {
         let userIds = [];
@@ -118,6 +126,19 @@ export default class CustomAttributesSettings extends React.Component {
                         id={this.state.attributes.size}
                     />
                 </div>
+                <ConfirmModal
+                    show={this.state.showDeleteModal}
+                    title={'Delete Attribute'}
+                    message={
+                        'Are you sure you want to remove the attribute: "' +
+                        this.state.deleteModalData.Name + '" ?'
+                    }
+                    confirmButtonText={'Remove Attribute'}
+                    onConfirm={() => {
+                        this.handleDelete(this.state.deleteModalData.id);
+                    }}
+                    onCancel={() => this.setState({showDeleteModal: false})}
+                />
             </div>
         );
     }
