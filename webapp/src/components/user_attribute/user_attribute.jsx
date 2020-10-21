@@ -8,6 +8,7 @@ const {formatText, messageHtmlToComponent} = window.PostUtils;
 export default class UserAttribute extends React.PureComponent {
     static propTypes = {
         id: PropTypes.string.isRequired,
+        fromWebhook: PropTypes.bool.isRequired,
         attributes: PropTypes.arrayOf(PropTypes.string),
         actions: PropTypes.shape({
             getAttributes: PropTypes.func.isRequired,
@@ -23,9 +24,9 @@ export default class UserAttribute extends React.PureComponent {
     }
 
     render() {
-        const {attributes} = this.props;
+        const {attributes, fromWebhook} = this.props;
 
-        if (attributes == null || attributes.length === 0) {
+        if (fromWebhook || attributes == null || attributes.length === 0) {
             return null;
         }
 

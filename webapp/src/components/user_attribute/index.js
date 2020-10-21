@@ -11,6 +11,7 @@ const REDUCER = `plugins-${pluginId}`;
 function mapStateToProps(state, ownProps) {
     const id = ownProps.user ? ownProps.user.id : '';
     const data = state[REDUCER].attributes[id];
+    const fromWebhook = ownProps.overwriteName && ownProps.overwriteIcon;
     let attributes;
     if (data) {
         attributes = data.attributes;
@@ -19,6 +20,7 @@ function mapStateToProps(state, ownProps) {
     return {
         id,
         attributes,
+        fromWebhook,
     };
 }
 
