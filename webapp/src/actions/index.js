@@ -15,7 +15,7 @@ export function getAttributes(userID = '') {
 
         let data = [];
         try {
-            data = await Client.getAttributes(userID);
+            data = await Client.getAttributes(getState(), userID);
         } catch (error) {
             if (error.status === 404) {
                 dispatch({
