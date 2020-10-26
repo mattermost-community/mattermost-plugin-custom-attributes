@@ -1,5 +1,7 @@
 import {getConfig} from 'mattermost-redux/selectors/entities/general';
 
+import {id as pluginId} from './manifest';
+
 import UserAttribute from './components/user_attribute';
 import CustomAttributesSettings from './components/admin_settings/custom_attribute_settings.jsx';
 import Reducer from './reducers';
