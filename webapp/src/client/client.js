@@ -1,11 +1,15 @@
 import {Client4} from 'mattermost-redux/client';
 import {ClientError} from 'mattermost-redux/client/client4';
 
-import {getSiteURL} from '../selectors';
+import {id as pluginId} from './manifest';
 
 export default class Client {
-    getAttributes = async (state = {}, userID = '') => {
-        return this.doGet(`${getSiteURL(state)}/attributes?user_id=${userID}`);
+    setServerRoute(url) {
+        this.url = `${url}/plugins/${pluginId}`;
+    }
+
+    getAttributes = async (userID = '') => {
+        return this.doGet(`${this.url}/api/v1/attributes?user_id=${userID}`);
     };
 
     doGet = async (url, body, headers = {}) => {
