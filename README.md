@@ -21,7 +21,7 @@ We use this plugin on https://community.mattermost.com to distinguish Mattermost
 
 ## Requirements
 - Mattermost Sever 5.20+
-- To use the "Group" features in this plugin requires a [Mattermost E20 Licence](https://mattermost.com/pricing/) to enable the AD/LDAP Groups Feature
+- To use the "Group" features in this plugin requires a [Mattermost E20 License](https://mattermost.com/pricing/) to enable the AD/LDAP Groups Feature
 
 ## Installation
 
