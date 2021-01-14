@@ -21,7 +21,7 @@
         "settings": [{
             "key": "CustomAttributes",
             "type": "custom", 
-            "display_name": "Custom Attributes"
+            "display_name": "Custom Attributes:"
         }]
     }
 }
