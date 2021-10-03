@@ -23,9 +23,9 @@ export default class UserAttribute extends React.PureComponent {
     }
 
     render() {
-        const {attributes} = this.props;
+        const {attributes, fromWebhook} = this.props;
 
-        if (attributes == null || attributes.length === 0) {
+        if (fromWebhook || attributes == null || attributes.length === 0) {
             return null;
         }
 
