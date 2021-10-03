@@ -5,8 +5,14 @@
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --mode=production",
+    "build:watch": "webpack --mode=production --watch",
+    "debug": "webpack --mode=none",
+    "debug:watch": "webpack --mode=development --watch",
     "lint": "eslint --ignore-pattern node_modules --ignore-pattern dist --ext .js --ext .jsx . --quiet",
-    "fix": "eslint --ignore-pattern node_modules --ignore-pattern dist --ext .js --ext .jsx . --quiet --fix"
+    "fix": "eslint --ignore-pattern node_modules --ignore-pattern dist --ext .js --ext .jsx . --quiet --fix",
+    "test": "echo 'No tests for this plugin'; exit 0; jest --forceExit --detectOpenHandles --verbose",
+    "test:watch": "echo 'No tests for this plugin'; exit 0; jest --watch",
+    "test-ci": "echo 'No tests for this plugin'; exit 0; jest --forceExit --detectOpenHandles --maxWorkers=2"
   },
   "author": "",
   "license": "",
