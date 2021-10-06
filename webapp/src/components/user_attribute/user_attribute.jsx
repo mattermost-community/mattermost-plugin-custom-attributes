@@ -12,6 +12,7 @@ export default class UserAttribute extends React.PureComponent {
         actions: PropTypes.shape({
             getAttributes: PropTypes.func.isRequired,
         }).isRequired,
+        fromWebhook: PropTypes.bool,
     };
 
     constructor(props) {
