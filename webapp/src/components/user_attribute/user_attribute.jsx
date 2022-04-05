@@ -12,6 +12,7 @@ export default class UserAttribute extends React.PureComponent {
         actions: PropTypes.shape({
             getAttributes: PropTypes.func.isRequired,
         }).isRequired,
+        fromWebhook: PropTypes.bool,
     };
 
     constructor(props) {
@@ -23,9 +24,9 @@ export default class UserAttribute extends React.PureComponent {
     }
 
     render() {
-        const {attributes} = this.props;
+        const {attributes, fromWebhook} = this.props;
 
-        if (attributes == null || attributes.length === 0) {
+        if (fromWebhook || attributes == null || attributes.length === 0) {
             return null;
         }
 
