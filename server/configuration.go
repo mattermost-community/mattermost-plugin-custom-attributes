@@ -37,18 +37,15 @@ func (c *configuration) Clone() *configuration {
 	for i1, ca := range c.CustomAttributes {
 		caClone := CustomAttribute{}
 		caClone.Name = ca.Name
+
 		caClone.UserIDs = make([]string, len(ca.UserIDs))
-		for i2, id := range ca.UserIDs {
-			caClone.UserIDs[i2] = id
-		}
+		copy(caClone.UserIDs, ca.UserIDs)
+
 		caClone.TeamIDs = make([]string, len(ca.TeamIDs))
-		for i2, id := range ca.TeamIDs {
-			caClone.TeamIDs[i2] = id
-		}
+		copy(caClone.TeamIDs, ca.TeamIDs)
+
 		caClone.GroupIDs = make([]string, len(ca.GroupIDs))
-		for i2, id := range ca.GroupIDs {
-			caClone.GroupIDs[i2] = id
-		}
+		copy(caClone.GroupIDs, ca.GroupIDs)
 
 		clone.CustomAttributes[i1] = caClone
 	}
