@@ -9,9 +9,6 @@
 [![Release](https://img.shields.io/github/v/release/mattermost/mattermost-plugin-custom-attributes)](https://github.com/mattermost/mattermost-plugin-custom-attributes/releases/latest)
 [![HW](https://img.shields.io/github/issues/mattermost/mattermost-plugin-custom-attributes/Up%20For%20Grabs?color=dark%20green&label=Help%20Wanted)](https://github.com/mattermost/mattermost-plugin-custom-attributes/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22Up+For+Grabs%22+label%3A%22Help+Wanted%22)
 
-**Maintainer:** [@marianunez](https://github.com/marianunez)
-**Co-Maintainer:** [@larkox](https://github.com/larkox)
-
 This plugin adds custom attributes to users in your Mattermost instance.  You can specify an Attribute, and then specify specific users, teams or groups which will display that attribute on their public profile - so other users can identify them easily.  This can be useful when there are Team Leads, Timezones, etc. and makes it easy to show who is on a particular team or Project.  
 
 Currently the plugin only exposes the specified attributes in the user profile popover, but this plugin could be extended to allow displaying attributes elsewhere in the user interface, such as badges next to usernames. 
