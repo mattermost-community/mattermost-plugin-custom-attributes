@@ -1,12 +1,13 @@
+# Disclaimer
+
+**This repository is community supported and not maintained by Mattermost. Mattermost disclaims liability for integrations, including Third Party Integrations and Mattermost Integrations. Integrations may be modified or discontinued at any time.**
+
 # Mattermost Custom Attributes Plugin 
 
 [![Build Status](https://img.shields.io/circleci/project/github/mattermost/mattermost-plugin-custom-attributes/master)](https://circleci.com/gh/mattermost/mattermost-plugin-custom-attributes)
 [![Code Coverage](https://img.shields.io/codecov/c/github/mattermost/mattermost-plugin-custom-attributes/master)](https://codecov.io/gh/mattermost/mattermost-plugin-custom-attributes)
 [![Release](https://img.shields.io/github/v/release/mattermost/mattermost-plugin-custom-attributes)](https://github.com/mattermost/mattermost-plugin-custom-attributes/releases/latest)
 [![HW](https://img.shields.io/github/issues/mattermost/mattermost-plugin-custom-attributes/Up%20For%20Grabs?color=dark%20green&label=Help%20Wanted)](https://github.com/mattermost/mattermost-plugin-custom-attributes/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22Up+For+Grabs%22+label%3A%22Help+Wanted%22)
-
-**Maintainer:** [@marianunez](https://github.com/marianunez)
-**Co-Maintainer:** [@larkox](https://github.com/larkox)
 
 This plugin adds custom attributes to users in your Mattermost instance.  You can specify an Attribute, and then specify specific users, teams or groups which will display that attribute on their public profile - so other users can identify them easily.  This can be useful when there are Team Leads, Timezones, etc. and makes it easy to show who is on a particular team or Project.  
 
