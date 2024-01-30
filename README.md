@@ -11,18 +11,11 @@
 
 This plugin adds custom attributes to users in your Mattermost instance.  You can specify an Attribute, and then specify specific users, teams or groups which will display that attribute on their public profile - so other users can identify them easily.  This can be useful when there are Team Leads, Timezones, etc. and makes it easy to show who is on a particular team or Project.  
 
-Currently the plugin only exposes the specified attributes in the user profile popover, but this plugin could be extended to allow displaying attributes elsewhere in the user interface, such as badges next to usernames. 
+Currently the plugin only exposes the specified attributes in the user profile popover, but this plugin could be extended to allow displaying attributes elsewhere in the user interface, such as badges next to usernames. To use the "Group" features in this plugin requires a [Mattermost E20 License](https://mattermost.com/pricing/) to enable the AD/LDAP Groups Feature.
 
 We use this plugin on https://community.mattermost.com to distinguish Mattermost core committers and staff.
 
 ![image](https://user-images.githubusercontent.com/13119842/58710612-b5c7b380-838a-11e9-9974-4487daf82da5.png)
-
-
-# Version 1.20 (Latest)
-
-## Requirements
-- Mattermost Sever 5.20+
-- To use the "Group" features in this plugin requires a [Mattermost E20 License](https://mattermost.com/pricing/) to enable the AD/LDAP Groups Feature
 
 ## Installation
 
@@ -54,16 +47,6 @@ Here are some example rules for two users:
 Their respective profile popovers display their information:
 
 ![2020-04-14_12-19-24](https://user-images.githubusercontent.com/915956/79267480-169a9600-7e4e-11ea-8c04-4775a395ff5b.png)
-
-
-# Version 1.10 and Below instructions
-
-## Configuration
-
-1. Go to **System Console > Plugins > Management** and click **Enable** to enable the Customer Attributes plugin.
-    - If you are running Mattermost v5.11 or earlier, you must first go to the [releases page of this GitHub repository](https://github.com/mattermost/mattermost-plugin-custom-attributes/releases), download the latest release, and upload it to your Mattermost instance [following this documentation](https://docs.mattermost.com/administration/plugins.html#plugin-uploads).
-
-2. Modify your `config.json` file to include your custom attributes, under the `PluginSettings`. See below for an example of what this should look like.
 
 ## Usage
 
