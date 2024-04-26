@@ -19,12 +19,9 @@ We use this plugin on https://community.mattermost.com to distinguish Mattermost
 
 ## Installation
 
-Install via Plugin Marketplace (Recommended)
- - Go to Main Menu > Plugin Marketplace in Mattermost
- - Search for "Custom Attributes" or manually find the plugin from the list and click **Install**
- - After the plugin has downloaded and been installed, click the **Configure** button
- - Set **Enable Plugin** to **True**, then click "Save" at the bottom of the screen
- - Proceed to Configure your Attribute rules
+1. Go to the [releases page of this Github repository](https://github.com/mattermost-community/mattermost-plugin-custom-attributes/releases) and download the latest release for your Mattermost server.
+2. Upload this file in the Mattermost System Console under **System Console > Plugins > Management** to install the plugin. To learn more about how to upload a plugin, [see the documentation](https://docs.mattermost.com/administration/plugins.html#plugin-uploads).
+3. Activate the plugin at **System Console > Plugins > Management**.
  
  ## Configuration
  
