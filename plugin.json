@@ -4,7 +4,7 @@
     "description": "Add custom user attributes to the Mattermost user profile popover.",
     "homepage_url": "https://github.com/mattermost/mattermost-plugin-custom-attributes",
     "support_url": "https://github.com/mattermost/mattermost-plugin-custom-attributes/issues",
-    "min_server_version": "5.37.0",
+    "min_server_version": "12.0.0",
     "server": {
         "executables": {
             "linux-amd64": "server/dist/plugin-linux-amd64",

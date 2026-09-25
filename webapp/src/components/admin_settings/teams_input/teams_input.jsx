@@ -31,13 +31,9 @@ export default class TeamsInput extends React.PureComponent {
         return team;
     };
 
-    formatOptionLabel = (option) => {
+    getOptionLabel = (option) => {
         if (option.display_name) {
-            return (
-                <React.Fragment>
-                    { `${option.display_name}`}
-                </React.Fragment>
-            );
+            return option.display_name;
         }
 
         return option;
@@ -65,7 +61,7 @@ export default class TeamsInput extends React.PureComponent {
                 loadOptions={this.searchTeams}
                 onChange={this.onChange}
                 getOptionValue={this.getOptionValue}
-                formatOptionLabel={this.formatOptionLabel}
+                getOptionLabel={this.getOptionLabel}
                 defaultMenuIsOpen={false}
                 openMenuOnClick={false}
                 isClearable={false}

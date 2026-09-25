@@ -31,13 +31,9 @@ export default class UsersInput extends React.Component {
         return user;
     };
 
-    formatOptionLabel = (option) => {
+    getOptionLabel = (option) => {
         if (option.username) {
-            return (
-                <React.Fragment>
-                    { `@${option.username}`}
-                </React.Fragment>
-            );
+            return `@${option.username}`;
         }
 
         return option;
@@ -72,7 +68,7 @@ export default class UsersInput extends React.Component {
                 loadOptions={this.usersLoader}
                 onChange={this.onChange}
                 getOptionValue={this.getOptionValue}
-                formatOptionLabel={this.formatOptionLabel}
+                getOptionLabel={this.getOptionLabel}
                 defaultMenuIsOpen={false}
                 openMenuOnClick={false}
                 isClearable={false}
